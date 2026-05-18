@@ -11,6 +11,7 @@
           "**/*.js",
           "**/*.png",
           "**/*.jpg",
+          "**/*.jpeg",
           "**/*.svg",
           "**/*.ico",
           "materials/**"
@@ -18,10 +19,7 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/server.js" }
   ]
 }

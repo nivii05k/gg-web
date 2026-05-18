@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ADMIN LAYOUT -->
+<div class="adm-layout" id="admLayout">
+
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar" id="admSidebar">
+        <div class="adm-brand">
+            <img src="LogoO.png" alt="Logo" class="adm-brand-logo">
+            <div>
+                <div class="adm-brand-name">Great Gaining</div>
+                <div class="adm-brand-sub">Admin Panel</div>
+            </div>
+        </div>
+
+        <nav class="adm-nav">
+            <a href="#" class="adm-nav-item active" data-section="overview" onclick="admShowSection('overview',this)">
+                <i class="fas fa-th-large"></i><span>Overview</span>
+            </a>
+            <a href="#" class="adm-nav-item" data-section="applications" onclick="admShowSection('applications',this)">
+                <i class="fas fa-file-alt"></i><span>Applications</span>
+                <span class="adm-badge" id="navBadgeApps">0</span>
+            </a>
+            <a href="#" class="adm-nav-item" data-section="students" onclick="admShowSection('students',this)">
+                <i class="fas fa-user-graduate"></i><span>Students</span>
+            </a>
+            <a href="#" class="adm-nav-item" data-section="messages" onclick="admShowSection('messages',this)">
+                <i class="fas fa-envelope"></i><span>Messages</span>
+                <span class="adm-badge" id="navBadgeMsgs">0</span>
+            </a>
+            <a href="#" class="adm-nav-item" data-section="livechat" onclick="admShowSection('livechat',this)">
+                <i class="fas fa-comments"></i><span>Live Chat</span>
+                <span class="adm-badge adm-badge-green" id="navBadgeChat">0</span>
+            </a>
+            <a href="#" class="adm-nav-item" data-section="settings" onclick="admShowSection('settings',this)">
+                <i class="fas fa-cog"></i><span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="adm-sidebar-footer">
+            <div class="adm-admin-info">
+                <div class="adm-admin-avatar" id="admAvatar">A</div>
+                <div>
+                    <div class="adm-admin-name" id="admName">Admin</div>
+                    <div class="adm-admin-role">Administrator</div>
+                </div>
+            </div>
+            <a href="#" onclick="admLogout()" class="adm-logout-btn" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="adm-main">
+
+        <!-- TOP BAR -->
+        <div class="adm-topbar">
+            <button class="adm-menu-toggle" onclick="document.getElementById('admSidebar').classList.toggle('open')" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="adm-topbar-title" id="admTopTitle">Overview</div>
+            <div class="adm-topbar-right">
+                <button class="adm-notif-btn" onclick="admShowSection('messages', document.querySelector('[data-section=messages]'))" title="Messages">
+                    <i class="fas fa-bell"></i>
+                    <span class="adm-notif-dot" id="admNotifDot" style="display:none;"></span>
+                </button>
+                <a href="index.html" class="adm-site-link" title="View Site">
+                    <i class="fas fa-external-link-alt"></i> View Site
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== OVERVIEW ===== -->
+        <section class="adm-section active" id="sec-overview">
+            <div class="adm-section-header">
+                <h1>Overview</h1>
+                <p>Welcome back! Here's what's happening today.</p>
+            </div>
+
+            <!-- STAT CARDS -->
+            <div class="adm-stats-grid" id="admStatsGrid">
+                <div class="adm-stat-card adm-stat-blue">
+                    <div class="adm-stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statTotalStudents">—</div>
+                        <div class="adm-stat-label">Total Students</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-purple">
+                    <div class="adm-stat-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statTotalApps">—</div>
+                        <div class="adm-stat-label">Total Applications</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-green">
+                    <div class="adm-stat-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statApproved">—</div>
+                        <div class="adm-stat-label">Approved</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-orange">
+                    <div class="adm-stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statPending">—</div>
+                        <div class="adm-stat-label">Pending</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-red">
+                    <div class="adm-stat-icon"><i class="fas fa-times-circle"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statRejected">—</div>
+                        <div class="adm-stat-label">Rejected</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-teal">
+                    <div class="adm-stat-icon"><i class="fas fa-comments"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statLiveChats">0</div>
+                        <div class="adm-stat-label">Active Chats</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-indigo">
+                    <div class="adm-stat-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statMessages">—</div>
+                        <div class="adm-stat-label">Messages</div>
+                    </div>
+                </div>
+                <div class="adm-stat-card adm-stat-pink">
+                    <div class="adm-stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="adm-stat-info">
+                        <div class="adm-stat-num" id="statTopCourse">—</div>
+                        <div class="adm-stat-label">Top Course</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW -->
+            <div class="adm-overview-row">
+                <!-- Recent Activity -->
+                <div class="adm-card adm-card-flex">
+                    <div class="adm-card-header">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    </div>
+                    <div class="adm-activity-list" id="admActivityList">
+                        <div class="adm-empty">No recent activity</div>
+                    </div>
+                </div>
+
+                <!-- Course Analytics -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <h3><i class="fas fa-chart-bar"></i> Course Enrollments</h3>
+                    </div>
+                    <div class="adm-course-bars" id="admCourseBars">
+                        <div class="adm-empty">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- Course Enrollment Summary -->
+                <div class="adm-card">
+                    <div class="adm-card-header">
+                        <h3><i class="fas fa-users"></i> Students per Course</h3>
+                    </div>
+                    <div id="admCourseEnrollments">
+                        <div class="adm-empty">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="adm-card" style="margin-top:24px;">
+                <div class="adm-card-header"><h3><i class="fas fa-bolt"></i> Quick Actions</h3></div>
+                <div class="adm-quick-actions">
+                    <button class="adm-qa-btn" onclick="admShowSection('applications', document.querySelector('[data-section=applications]'))">
+                        <i class="fas fa-file-alt"></i> View Applications
+                    </button>
+                    <button class="adm-qa-btn" onclick="admShowSection('students', document.querySelector('[data-section=students]'))">
+                        <i class="fas fa-users"></i> View Students
+                    </button>
+                    <button class="adm-qa-btn" onclick="admShowSection('livechat', document.querySelector('[data-section=livechat]'))">
+                        <i class="fas fa-headset"></i> Open Live Support
+                    </button>
+                    <button class="adm-qa-btn" onclick="admShowSection('messages', document.querySelector('[data-section=messages]'))">
+                        <i class="fas fa-envelope"></i> View Messages
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== APPLICATIONS ===== -->
+        <section class="adm-section" id="sec-applications">
+            <div class="adm-section-header">
+                <h1>Applications</h1>
+                <p>Manage all student course applications.</p>
+            </div>
+            <div class="adm-card">
+                <div class="adm-card-header">
+                    <h3><i class="fas fa-filter"></i> Filter & Search</h3>
+                </div>
+                <div class="adm-filters">
+                    <input type="text" id="appSearch" placeholder="Search by name or email..." class="adm-search-input" oninput="filterApplications()">
+                    <select id="appStatusFilter" class="adm-select" onchange="filterApplications()">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="appCourseFilter" class="adm-select" onchange="filterApplications()">
+                        <option value="">All Courses</option>
+                        <option>Frontend Development</option>
+                        <option>Data Analysis</option>
+                        <option>Software Testing</option>
+                        <option>Web Development</option>
+                        <option>Business Analysis</option>
+                        <option>UI/UX Design</option>
+                        <option>Cyber Security</option>
+                    </select>
+                </div>
+                <div class="adm-table-wrap">
+                    <table class="adm-table" id="appsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Course &amp; Enrollment</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appsTableBody">
+                            <tr><td colspan="8" class="adm-empty">Loading applications...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STUDENTS ===== -->
+        <section class="adm-section" id="sec-students">
+            <div class="adm-section-header">
+                <h1>Students</h1>
+                <p>View and manage all registered students.</p>
+            </div>
+            <div class="adm-card">
+                <div class="adm-card-header"><h3><i class="fas fa-filter"></i> Search Students</h3></div>
+                <div class="adm-filters">
+                    <input type="text" id="stuSearch" placeholder="Search by name or email..." class="adm-search-input" oninput="filterStudents()">
+                    <select id="stuActivityFilter" class="adm-select" onchange="filterStudents()">
+                        <option value="">All Students</option>
+                        <option value="enrolled">Enrolled</option>
+                        <option value="not-enrolled">Not Enrolled</option>
+                    </select>
+                </div>
+                <div class="adm-table-wrap">
+                    <table class="adm-table" id="stuTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Courses Enrolled</th>
+                                <th>Registered</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stuTableBody">
+                            <tr><td colspan="7" class="adm-empty">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MESSAGES ===== -->
+        <section class="adm-section" id="sec-messages">
+            <div class="adm-section-header">
+                <h1>Messages</h1>
+                <p>All contact form submissions and student inquiries.</p>
+            </div>
+            <div class="adm-card">
+                <div class="adm-card-header"><h3><i class="fas fa-inbox"></i> Inbox</h3></div>
+                <div class="adm-filters">
+                    <input type="text" id="msgSearch" placeholder="Search messages..." class="adm-search-input" oninput="filterMessages()">
+                </div>
+                <div class="adm-messages-list" id="admMessagesList">
+                    <div class="adm-empty">Loading messages...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LIVE CHAT ===== -->
+        <section class="adm-section" id="sec-livechat">
+            <div class="adm-section-header">
+                <h1>Live Chat</h1>
+                <p>Real-time support sessions with students.</p>
+            </div>
+            <div class="adm-livechat-layout">
+                <!-- Sessions list -->
+                <div class="adm-card adm-chat-sessions-panel">
+                    <div class="adm-card-header">
+                        <h3><i class="fas fa-list"></i> Active Sessions</h3>
+                        <span class="adm-online-dot"></span>
+                        <span style="font-size:0.78rem;color:#38a169;font-weight:600;" id="admOnlineCount">0 online</span>
+                    </div>
+                    <div class="adm-chat-sessions" id="admChatSessions">
+                        <div class="adm-empty">No active chat sessions.<br><small>Students will appear here when they request live support.</small></div>
+                    </div>
+                </div>
+
+                <!-- Chat window -->
+                <div class="adm-card adm-chat-window-panel">
+                    <div class="adm-card-header" id="admChatWindowHeader">
+                        <h3><i class="fas fa-comment-dots"></i> Select a session</h3>
+                    </div>
+                    <div class="adm-chat-messages" id="admChatMessages">
+                        <div class="adm-chat-placeholder">
+                            <i class="fas fa-comments" style="font-size:3rem;color:#e0d4f5;"></i>
+                            <p>Select a chat session to start replying</p>
+                        </div>
+                    </div>
+                    <div class="adm-chat-input-row" id="admChatInputRow">
+                        <div class="adm-quick-replies">
+                            <button onclick="admQuickReply('Hello 👋')">Hello 👋</button>
+                            <button onclick="admQuickReply('One moment please...')">One moment</button>
+                            <button onclick="admQuickReply('Your application has been received ✅')">App received</button>
+                            <button onclick="admQuickReply('Thank you for reaching out! 😊')">Thank you</button>
+                        </div>
+                        <div class="adm-chat-input-wrap">
+                            <input type="text" id="admChatInput" placeholder="Type a reply..." onkeypress="if(event.key==='Enter') admSendReply()">
+                            <button onclick="admSendReply()" class="adm-chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SETTINGS ===== -->
+        <section class="adm-section" id="sec-settings">
+            <div class="adm-section-header">
+                <h1>Settings</h1>
+                <p>Manage your admin profile and preferences.</p>
+            </div>
+            <div class="adm-settings-grid">
+                <!-- Profile -->
+                <div class="adm-card">
+                    <div class="adm-card-header"><h3><i class="fas fa-user-circle"></i> Profile</h3></div>
+                    <div class="adm-settings-form">
+                        <div class="adm-form-group">
+                            <label>Display Name</label>
+                            <input type="text" id="settName" placeholder="Admin Name">
+                        </div>
+                        <div class="adm-form-group">
+                            <label>Email</label>
+                            <input type="email" id="settEmail" placeholder="admin@greatgaining.in" readonly>
+                        </div>
+                        <button class="adm-btn adm-btn-primary" onclick="saveAdminProfile()">Save Profile</button>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="adm-card">
+                    <div class="adm-card-header"><h3><i class="fas fa-lock"></i> Change Password</h3></div>
+                    <div class="adm-settings-form">
+                        <div class="adm-form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="settOldPass" placeholder="Current password">
+                        </div>
+                        <div class="adm-form-group">
+                            <label>New Password</label>
+                            <input type="password" id="settNewPass" placeholder="New password (min 6 chars)">
+                        </div>
+                        <div class="adm-form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="settConfPass" placeholder="Confirm new password">
+                        </div>
+                        <button class="adm-btn adm-btn-primary" onclick="changeAdminPassword()">Update Password</button>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="adm-card">
+                    <div class="adm-card-header"><h3><i class="fas fa-bell"></i> Notifications</h3></div>
+                    <div class="adm-settings-form">
+                        <label class="adm-toggle-row">
+                            <span>New application received</span>
+                            <input type="checkbox" id="notifApp" checked onchange="saveNotifPrefs()">
+                        </label>
+                        <label class="adm-toggle-row">
+                            <span>New student registered</span>
+                            <input type="checkbox" id="notifStudent" checked onchange="saveNotifPrefs()">
+                        </label>
+                        <label class="adm-toggle-row">
+                            <span>New live chat request</span>
+                            <input type="checkbox" id="notifChat" checked onchange="saveNotifPrefs()">
+                        </label>
+                        <label class="adm-toggle-row">
+                            <span>New contact message</span>
+                            <input type="checkbox" id="notifMsg" checked onchange="saveNotifPrefs()">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div class="adm-card">
+                    <div class="adm-card-header"><h3><i class="fas fa-sliders-h"></i> Preferences</h3></div>
+                    <div class="adm-settings-form">
+                        <label class="adm-toggle-row">
+                            <span>Dark Mode</span>
+                            <input type="checkbox" id="settDarkMode" onchange="toggleDarkModeFromSettings(this)">
+                        </label>
+                        <label class="adm-toggle-row">
+                            <span>Compact Sidebar</span>
+                            <input type="checkbox" id="settCompact" onchange="toggleCompactSidebar(this)">
+                        </label>
+                        <div class="adm-form-group" style="margin-top:16px;">
+                            <label>Default Landing Section</label>
+                            <select id="settDefaultSection" class="adm-select" onchange="saveAdminPrefs()">
+                                <option value="overview">Overview</option>
+                                <option value="applications">Applications</option>
+                                <option value="students">Students</option>
+                                <option value="messages">Messages</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- APPLICATION DETAIL MODAL -->
+<div id="appDetailModal" class="adm-modal-overlay" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+    <div class="adm-modal">
+        <button class="adm-modal-close" onclick="document.getElementById('appDetailModal').style.display='none'">&times;</button>
+        <h2 style="margin-bottom:20px;font-family:'Poppins',sans-serif;color:var(--navy);">Application Details</h2>
+        <div id="appDetailBody"></div>
+    </div>
+</div>
+
+<!-- STUDENT PROFILE MODAL -->
+<div id="stuProfileModal" class="adm-modal-overlay" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+    <div class="adm-modal">
+        <button class="adm-modal-close" onclick="document.getElementById('stuProfileModal').style.display='none'">&times;</button>
+        <h2 style="margin-bottom:20px;font-family:'Poppins',sans-serif;color:var(--navy);">Student Profile</h2>
+        <div id="stuProfileBody"></div>
+    </div>
+</div>
+
+<!-- MESSAGE DETAIL MODAL -->
+<div id="msgDetailModal" class="adm-modal-overlay" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+    <div class="adm-modal">
+        <button class="adm-modal-close" onclick="document.getElementById('msgDetailModal').style.display='none'">&times;</button>
+        <h2 style="margin-bottom:20px;font-family:'Poppins',sans-serif;color:var(--navy);">Message Details</h2>
+        <div id="msgDetailBody"></div>
+    </div>
+</div>
+
+<script src="Script.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

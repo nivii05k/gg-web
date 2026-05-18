@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><img src="LogoO.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<div class="db-wrap">
+
+    <!-- PROFILE CARD -->
+    <div class="db-profile-card">
+        <div class="db-avatar" id="dbAvatar">?</div>
+        <div class="db-profile-info">
+            <div class="db-name" id="dbName">Loading...</div>
+            <div class="db-email" id="dbEmail"></div>
+            <div class="db-joined" id="dbJoined"></div>
+        </div>
+        <a href="#" onclick="logout()" class="db-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- NO ENROLLMENT STATE -->
+    <div class="db-no-course" id="dbNoCourse" style="display:none;">
+        <div class="db-no-icon">🎓</div>
+        <h2>No Course Enrolled Yet</h2>
+        <p>Browse our courses and apply to get started on your learning journey.</p>
+        <a href="course.html" class="btn btn-primary" style="margin-top:20px;">Explore Courses →</a>
+    </div>
+
+    <!-- COURSE TABS -->
+    <div id="dbEnrolledSummary" style="display:none;">
+        <div class="db-tabs-header">
+            <div class="db-tabs-label">My Courses</div>
+            <div class="db-tabs" id="dbTabs"></div>
+        </div>
+        <div id="dbAllCourses"></div>
+    </div>
+
+</div>
+
+<footer class="footer-rich">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-brand">Great Gaining Institution</div>
+            <p>Chennai's trusted skill-development centre. Practical training, real placements, affordable fees.</p>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Quick Links</div>
+            <a href="index.html">Home</a>
+            <a href="course.html">Courses</a>
+            <a href="contact.html">Contact</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contact Us</div>
+            <p>📞 +91 88388 75601</p>
+            <p>📧 info@greatgaining.in</p>
+            <p>📍 Chennai, Tamil Nadu</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 <span>Great Gaining Institution</span> &nbsp;·&nbsp; Chennai, India
+    </div>
+</footer>
+
+<script src="Script.js"></script>
+
+<!-- CERTIFICATE MODAL -->
+<div id="certModal" style="display:none;position:fixed;inset:0;background:rgba(26,26,46,0.8);z-index:4000;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div style="background:#fff;border-radius:20px;width:95%;max-width:720px;max-height:92vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 32px 80px rgba(26,26,46,0.4);">
+    <span onclick="document.getElementById('certModal').style.display='none'" style="position:absolute;top:16px;right:20px;font-size:1.5rem;cursor:pointer;color:#9e9e9e;line-height:1;z-index:1;">&times;</span>
+    <!-- CERTIFICATE DESIGN -->
+    <div id="certificateBox" style="border:3px solid #7c4daa;border-radius:16px;padding:48px 40px;text-align:center;background:linear-gradient(160deg,#faf7ff 0%,#ede7f6 100%);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(124,77,170,0.12),transparent 70%);"></div>
+      <div style="position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(179,157,219,0.15),transparent 70%);"></div>
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#7c4daa;margin-bottom:8px;">Great Gaining Institution</div>
+      <div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#9e9e9e;margin-bottom:24px;">Chennai, Tamil Nadu</div>
+      <div style="font-size:2.2rem;margin-bottom:4px;">&#127941;</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:1.8rem;color:#1a1a2e;margin-bottom:4px;">Certificate of Completion</h2>
+      <p style="color:#9e9e9e;font-size:0.82rem;margin-bottom:28px;letter-spacing:0.05em;">This is to certify that</p>
+      <div id="certName" style="font-family:'Poppins',sans-serif;font-size:2rem;font-weight:900;color:#7c4daa;border-bottom:2px solid #b39ddb;display:inline-block;padding-bottom:6px;margin-bottom:20px;"></div>
+      <p style="color:#555;font-size:0.9rem;margin-bottom:8px;">has successfully completed the course</p>
+      <div id="certCourse" style="font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:700;color:#1a1a2e;margin-bottom:24px;"></div>
+      <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:28px;">
+        <div style="text-align:center;">
+          <div id="certDate" style="font-size:0.88rem;font-weight:600;color:#1a1a2e;"></div>
+          <div style="font-size:0.7rem;color:#9e9e9e;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;">Date of Completion</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.88rem;font-weight:600;color:#1a1a2e;">Great Gaining Institution</div>
+          <div style="font-size:0.7rem;color:#9e9e9e;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;">Issued By</div>
+        </div>
+      </div>
+      <div style="font-size:0.72rem;color:#b39ddb;letter-spacing:0.1em;">info@greatgaining.in &nbsp;|&nbsp; +91 88388 75601 &nbsp;|&nbsp; Chennai, India</div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:20px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="printCertificate()" style="padding:12px 28px;background:linear-gradient(135deg,#1a1a2e,#2d2d5e);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Print / Save as PDF</button>
+      <button onclick="document.getElementById('certModal').style.display='none'" style="padding:12px 28px;background:#f3eeff;color:#7c4daa;border:1.5px solid #b39ddb;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ/LESSON MODAL -->
+<div id="moduleModal" style="display:none;position:fixed;inset:0;background:rgba(26,26,46,0.7);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div style="background:#fff;border-radius:20px;width:92%;max-width:620px;max-height:88vh;overflow-y:auto;padding:36px;position:relative;box-shadow:0 32px 80px rgba(26,26,46,0.35);">
+    <span onclick="closeModuleModal()" style="position:absolute;top:16px;right:20px;font-size:1.5rem;cursor:pointer;color:#9e9e9e;line-height:1;">&times;</span>
+    <div id="moduleModalBody"></div>
+  </div>
+</div>
+
+<script>
+// ── cert course tracker for multi-course
+let _certCourseName = null;
+
+const SYLLABUS = {
+    "Frontend Development": [
+        { title: "HTML Fundamentals", type: "lesson", desc: "Structure of web pages, semantic tags, forms.",
+          submodules: [
+            { title: "Basic HTML Structure", videoId: "qz0aGYrrlhU", text: "Learn HTML document structure, semantic tags like header, nav, main, section, article, footer. Understand headings h1-h6, paragraphs, spans, links and images.", resources: [{label: "MDN HTML Guide", url: "https://developer.mozilla.org/en-US/docs/Learn/HTML"}, {label: "W3Schools HTML", url: "https://www.w3schools.com/html/"}] },
+            { title: "Forms and Tables", videoId: "YwbIeMCEoes", text: "Master HTML forms with input types, labels, buttons, textarea, select. Learn form validation with required, pattern, min, max attributes. Create tables with thead, tbody, tr, th, td.", resources: [{label: "HTML Forms Tutorial", url: "https://www.w3schools.com/html/html_forms.asp"}] }
+          ] },
+        { title: "HTML Quiz", type: "assessment", desc: "Test your HTML knowledge.",
+          quiz: [
+            { q: "Which tag is used to define the largest heading?", opts: ["h6","h1","head","title"], ans: 1 },
+            { q: "Which attribute makes a link open in a new tab?", opts: ["href","src","target _blank","rel"], ans: 2 },
+            { q: "Which HTML tag is used to create a hyperlink?", opts: ["link","a","href","nav"], ans: 1 },
+            { q: "What does DOCTYPE declaration do?", opts: ["Styles the page","Tells browser the HTML version","Creates a database","Loads JavaScript"], ans: 1 },
+            { q: "Which tag is used to insert an image?", opts: ["image","src","img","pic"], ans: 2 }
+          ] },
+        { title: "CSS Styling", type: "lesson", desc: "Selectors, box model, flexbox, grid.",
+          submodules: [
+            { title: "CSS Fundamentals", videoId: "wRNinF7YQqQ", text: "Learn CSS selectors (element, class, id, pseudo-classes), the box model (margin, border, padding, content), typography and color values.", resources: [{label: "MDN CSS Guide", url: "https://developer.mozilla.org/en-US/docs/Learn/CSS"}, {label: "CSS Tricks Flexbox", url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"}] },
+            { title: "Layout Systems", videoId: "JJSoEo8JSnc", text: "Master Flexbox (justify-content, align-items, flex-wrap), CSS Grid (grid-template-columns, gap), positioning (static, relative, absolute, fixed, sticky) and responsive media queries.", resources: [{label: "CSS Grid Guide", url: "https://css-tricks.com/snippets/css/complete-guide-grid/"}] }
+          ] },
+        { title: "CSS Quiz", type: "assessment", desc: "Test your CSS knowledge.",
+          quiz: [
+            { q: "Which CSS property controls spacing inside an element?", opts: ["margin","padding","border","gap"], ans: 1 },
+            { q: "What does CSS Flexbox primarily control?", opts: ["Colors","Layout and alignment of elements","Animations","Font sizes"], ans: 1 },
+            { q: "Which value of position removes an element from normal flow?", opts: ["static","relative","absolute","inherit"], ans: 2 },
+            { q: "Which unit is relative to the viewport width?", opts: ["px","em","vw","rem"], ans: 2 },
+            { q: "Which property creates a CSS Grid container?", opts: ["display:flex","display:grid","display:block","display:inline"], ans: 1 }
+          ] },
+        { title: "JavaScript Basics", type: "lesson", desc: "Variables, functions, DOM manipulation.",
+          submodules: [
+            { title: "JS Core Concepts", videoId: "hdI2bqOjy3c", text: "Understand variables (var, let, const), data types, functions (declaration, expression, arrow), arrays (map, filter, forEach) and objects with destructuring.", resources: [{label: "JavaScript.info", url: "https://javascript.info"}, {label: "Eloquent JavaScript", url: "https://eloquentjavascript.net/"}] },
+            { title: "DOM & Events", videoId: "0ik6X4DJKCc", text: "Learn DOM manipulation with getElementById, querySelector, innerHTML. Create and append elements. Handle events like click, submit, keydown using addEventListener and understand event bubbling.", resources: [{label: "MDN DOM Guide", url: "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model"}] }
+          ] },
+        { title: "JS Assessment", type: "assessment", desc: "Test your JavaScript knowledge.",
+          quiz: [
+            { q: "Which keyword declares a block-scoped variable?", opts: ["var","let","function","static"], ans: 1 },
+            { q: "What does DOM stand for?", opts: ["Document Object Model","Data Object Method","Display Output Mode","Dynamic Object Map"], ans: 0 },
+            { q: "Which method adds an element to the end of an array?", opts: ["pop()","shift()","push()","splice()"], ans: 2 },
+            { q: "What is the output of typeof 'hello'?", opts: ["string","text","char","object"], ans: 0 },
+            { q: "Which symbol is used for arrow functions?", opts: ["->","=>","-->","::"], ans: 1 }
+          ] }
+    ],
+    "Data Analysis": [
+        { title: "Excel Essentials", type: "lesson", desc: "Formulas, pivot tables, charts.",
+          submodules: [
+            { title: "Excel Formulas & Functions", videoId: "PSNXoAs2ARI", text: "Learn SUM, AVERAGE, COUNT, IF, VLOOKUP, INDEX-MATCH. Understand logical functions (AND, OR, IFERROR) and text functions (CONCATENATE, LEFT, RIGHT, TRIM).", resources: [{label: "Microsoft Excel Help", url: "https://support.microsoft.com/en-us/excel"}, {label: "Excel Easy Tutorial", url: "https://www.excel-easy.com/"}] },
+            { title: "Pivot Tables & Charts", videoId: "9NUDyFBs-8s", text: "Master Pivot Tables to summarise large datasets. Create bar, line, pie and scatter charts. Use conditional formatting, filters and sorting to organise data efficiently.", resources: [{label: "Excel Pivot Table Guide", url: "https://support.microsoft.com/en-us/office/create-a-pivottable-to-analyze-worksheet-data-a9a84538-bfe9-40a9-a8e9-f99134456576"}] }
+          ] },
+        { title: "Excel Quiz", type: "assessment", desc: "Test your Excel skills.",
+          quiz: [
+            { q: "Which function finds a value in a table by row?", opts: ["HLOOKUP","VLOOKUP","INDEX","FIND"], ans: 1 },
+            { q: "What does a Pivot Table do?", opts: ["Creates charts","Summarises and analyses data","Formats cells","Runs macros"], ans: 1 },
+            { q: "Which formula counts only numeric cells?", opts: ["COUNTA","COUNTIF","COUNT","SUM"], ans: 2 },
+            { q: "What does the IF function return?", opts: ["Always a number","A value based on a condition","A chart","A pivot table"], ans: 1 },
+            { q: "Which chart type is best for showing trends over time?", opts: ["Pie chart","Bar chart","Line chart","Scatter chart"], ans: 2 }
+          ] },
+        { title: "Python for Data", type: "lesson", desc: "Pandas, NumPy, data cleaning.",
+          submodules: [
+            { title: "Pandas Fundamentals", videoId: "PcvsOaixUh8", text: "Learn DataFrames, reading CSV/Excel files, data selection with loc and iloc, handling nulls and duplicates, filtering with boolean conditions.", resources: [{label: "Pandas Official Tutorial", url: "https://pandas.pydata.org/docs/getting_started/intro_tutorials/"}, {label: "NumPy Beginner Guide", url: "https://numpy.org/doc/stable/user/absolute_beginners.html"}] },
+            { title: "NumPy & Data Operations", videoId: "8JfDAm9y_7s", text: "Understand NumPy arrays, mathematical operations, groupby aggregation, merging data with merge/join/concat, and exporting results to CSV, Excel or JSON.", resources: [{label: "NumPy Documentation", url: "https://numpy.org/doc/"}] }
+          ] },
+        { title: "Python Quiz", type: "assessment", desc: "Test your Python data skills.",
+          quiz: [
+            { q: "Which library is used for DataFrames in Python?", opts: ["NumPy","Pandas","Matplotlib","Scikit-learn"], ans: 1 },
+            { q: "Which method removes duplicate rows in Pandas?", opts: ["drop_na()","remove_duplicates()","drop_duplicates()","clean()"], ans: 2 },
+            { q: "What does loc[] do in Pandas?", opts: ["Locates a file","Selects rows/columns by label","Counts rows","Sorts data"], ans: 1 },
+            { q: "Which NumPy function creates an array of zeros?", opts: ["np.empty()","np.ones()","np.zeros()","np.array()"], ans: 2 },
+            { q: "Which method exports a DataFrame to CSV?", opts: ["to_excel()","to_csv()","export_csv()","save()"], ans: 1 }
+          ] },
+        { title: "Data Visualisation", type: "lesson", desc: "Matplotlib, Seaborn, storytelling with data.",
+          submodules: [
+            { title: "Matplotlib Basics", videoId: "DAQNHzOcO5A", text: "Create line, bar, scatter and histogram plots. Customise with colors, labels, titles and legends. Use subplots for multiple charts in one figure.", resources: [{label: "Matplotlib Tutorials", url: "https://matplotlib.org/stable/tutorials/index.html"}, {label: "Seaborn Tutorial", url: "https://seaborn.pydata.org/tutorial.html"}] },
+            { title: "Seaborn & Storytelling", videoId: "ooygZZGPe9s", text: "Use Seaborn for statistical plots, heatmaps and pairplots. Learn boxplot, violinplot and jointplot. Understand data storytelling — choosing the right chart for your audience.", resources: [{label: "Seaborn Gallery", url: "https://seaborn.pydata.org/examples/index.html"}] }
+          ] },
+        { title: "Visualisation Quiz", type: "assessment", desc: "Test your data visualisation knowledge.",
+          quiz: [
+            { q: "Which library is built on top of Matplotlib?", opts: ["NumPy","Pandas","Seaborn","Scikit-learn"], ans: 2 },
+            { q: "Which chart is best for showing distribution of data?", opts: ["Pie chart","Histogram","Line chart","Bar chart"], ans: 1 },
+            { q: "What does a heatmap show?", opts: ["Temperature data only","Correlation between variables","Time series data","Category comparisons"], ans: 1 },
+            { q: "Which Matplotlib function creates a line plot?", opts: ["plt.bar()","plt.scatter()","plt.plot()","plt.hist()"], ans: 2 },
+            { q: "What is the purpose of data storytelling?", opts: ["Make data look pretty","Communicate insights clearly to audience","Reduce data size","Speed up analysis"], ans: 1 }
+          ] }
+    ],
+    "Software Testing": [
+        { title: "Testing Fundamentals", type: "lesson", desc: "SDLC, STLC, types of testing.",
+          submodules: [
+            { title: "SDLC & STLC", videoId: "SqcY0GlETPk", text: "Understand SDLC phases, STLC stages, the V-Model, and how to write a Test Plan covering scope, objectives, resources and schedule.", resources: [{label: "Guru99 Testing Guide", url: "https://www.guru99.com/software-testing.html"}, {label: "ISTQB Syllabus", url: "https://www.istqb.org/"}] },
+            { title: "Testing Types & Bug Life Cycle", videoId: "oLc9gVM8FBM", text: "Learn unit, integration, system and acceptance testing. Understand Black Box vs White Box approaches, functional vs non-functional testing, and the full bug life cycle.", resources: [{label: "Software Testing Help", url: "https://www.softwaretestinghelp.com/"}] }
+          ] },
+        { title: "Fundamentals Quiz", type: "assessment", desc: "Test your testing concepts.",
+          quiz: [
+            { q: "What does STLC stand for?", opts: ["Software Test Life Cycle","System Test Launch Cycle","Software Testing Level Check","Standard Test Logic Cycle"], ans: 0 },
+            { q: "Which testing checks the internal code structure?", opts: ["Black box","Grey box","White box","Smoke testing"], ans: 2 },
+            { q: "What is a test case?", opts: ["A bug report","A set of conditions to verify a feature","A deployment script","A code review"], ans: 1 },
+            { q: "Which phase comes first in STLC?", opts: ["Test execution","Test closure","Requirement analysis","Test design"], ans: 2 },
+            { q: "What is regression testing?", opts: ["Testing new features only","Re-testing after bug fixes to ensure nothing broke","Performance testing","Security testing"], ans: 1 }
+          ] },
+        { title: "Manual Testing", type: "lesson", desc: "Test cases, bug reporting, test plans.",
+          submodules: [
+            { title: "Test Case Design", videoId: "Dq_d4hNaIoo", text: "Write test cases with test ID, steps, expected and actual results. Learn test scenarios, Boundary Value Analysis and Equivalence Partitioning.", resources: [{label: "Manual Testing Guide", url: "https://www.guru99.com/manual-testing.html"}] },
+            { title: "Bug Reporting & Exploratory Testing", videoId: "I16lz26WZi0", text: "Create effective bug reports with title, severity, priority and reproduction steps. Understand severity vs priority, exploratory testing and regression testing.", resources: [{label: "Bug Reporting Best Practices", url: "https://www.softwaretestinghelp.com/how-to-write-good-bug-report/"}] }
+          ] },
+        { title: "Manual Testing Quiz", type: "assessment", desc: "Test your manual testing knowledge.",
+          quiz: [
+            { q: "Which method is used to type text in Selenium?", opts: ["click()","sendKeys()","getText()","submit()"], ans: 1 },
+            { q: "What is the most reliable locator in Selenium?", opts: ["Name","Class name","ID","Tag name"], ans: 2 },
+            { q: "What does WebDriver.get() do?", opts: ["Gets page title","Opens a URL in browser","Gets element text","Closes browser"], ans: 1 },
+            { q: "Which wait checks condition repeatedly until timeout?", opts: ["Implicit wait","Thread.sleep","Explicit wait","Hard wait"], ans: 2 },
+            { q: "What is Page Object Model?", opts: ["A database model","A design pattern to separate page elements from tests","A type of locator","A Selenium version"], ans: 1 }
+          ] },
+        { title: "Selenium & API Testing", type: "lesson", desc: "WebDriver, Postman, REST API testing.",
+          submodules: [
+            { title: "Selenium WebDriver", videoId: "j7VZsCCnptM", text: "Control browsers with WebDriver. Use locators (ID, XPath, CSS), perform actions (click, sendKeys), handle waits and implement the Page Object Model.", resources: [{label: "Selenium Official Docs", url: "https://www.selenium.dev/documentation/"}, {label: "Guru99 Selenium", url: "https://www.guru99.com/selenium-tutorial.html"}] },
+            { title: "API Testing with Postman", videoId: "CLG0ha_a0q8", text: "Test REST APIs using GET, POST, PUT, DELETE methods. Understand status codes, request headers and JSON. Use Postman collections, assertions and environment variables.", resources: [{label: "Postman Learning Center", url: "https://learning.postman.com"}, {label: "REST API Tutorial", url: "https://restfulapi.net/"}] }
+          ] },
+        { title: "Selenium & API Quiz", type: "assessment", desc: "Test your Selenium and API knowledge.",
+          quiz: [
+            { q: "What does CRUD stand for?", opts: ["Create Read Update Delete","Copy Run Update Deploy","Create Run Undo Delete","Connect Read Use Delete"], ans: 0 },
+            { q: "Which HTTP method retrieves data?", opts: ["POST","PUT","GET","DELETE"], ans: 2 },
+            { q: "What status code means success?", opts: ["404","500","200","301"], ans: 2 },
+            { q: "What is Postman used for?", opts: ["UI design","Testing APIs","Writing code","Database management"], ans: 1 },
+            { q: "What is a REST API?", opts: ["A database","A web service using HTTP methods","A testing framework","A CSS library"], ans: 1 }
+          ] }
+    ],
+    "Web Development": [
+        { title: "Frontend Basics", type: "lesson", desc: "HTML, CSS, JavaScript essentials.",
+          submodules: [
+            { title: "HTML & CSS Fundamentals", videoId: "qz0aGYrrlhU", text: "Learn HTML structure, semantic elements, forms and tables. Master CSS selectors, box model, Flexbox, Grid and responsive media queries.", resources: [{label: "MDN Web Docs", url: "https://developer.mozilla.org/en-US/docs/Learn"}, {label: "Web.dev Learn", url: "https://web.dev/learn/"}] },
+            { title: "JavaScript & Tools", videoId: "hdI2bqOjy3c", text: "Understand DOM manipulation, events, fetch API, ES6 features (arrow functions, destructuring, spread). Use Browser DevTools and Git basics for version control.", resources: [{label: "JavaScript.info", url: "https://javascript.info"}] }
+          ] },
+        { title: "Frontend Quiz", type: "assessment", desc: "Test your frontend knowledge.",
+          quiz: [
+            { q: "Which CSS property controls spacing inside an element?", opts: ["margin","padding","border","gap"], ans: 1 },
+            { q: "Which method fetches data from an API in JavaScript?", opts: ["axios()","get()","fetch()","request()"], ans: 2 },
+            { q: "What does CSS Flexbox primarily control?", opts: ["Colors","Layout and alignment of elements","Animations","Font sizes"], ans: 1 },
+            { q: "Which Git command saves changes to local repo?", opts: ["git push","git pull","git commit","git clone"], ans: 2 },
+            { q: "What is the purpose of semantic HTML?", opts: ["Make pages load faster","Give meaning to content for browsers and accessibility","Add animations","Style elements"], ans: 1 }
+          ] },
+        { title: "Node.js & Express", type: "lesson", desc: "Server setup, routing, middleware.",
+          submodules: [
+            { title: "Node.js Fundamentals", videoId: "fBNz5xF-Kx4", text: "Learn Node.js event loop, non-blocking I/O, npm package manager, file system module and environment variables with dotenv.", resources: [{label: "Node.js Documentation", url: "https://nodejs.org/en/docs/"}, {label: "Express.js Guide", url: "https://expressjs.com/en/starter/hello-world.html"}] },
+            { title: "Express Routing & Middleware", videoId: "SccSCuHhOw0", text: "Build Express servers with GET, POST, PUT, DELETE routes. Use middleware like express.json(), cors() and custom error handling with try/catch.", resources: [{label: "Express Middleware Guide", url: "https://expressjs.com/en/guide/using-middleware.html"}] }
+          ] },
+        { title: "Node.js Quiz", type: "assessment", desc: "Test your Node.js and Express knowledge.",
+          quiz: [
+            { q: "What does CRUD stand for?", opts: ["Create Read Update Delete","Copy Run Update Deploy","Create Run Undo Delete","Connect Read Use Delete"], ans: 0 },
+            { q: "Which SQL command retrieves data?", opts: ["INSERT","UPDATE","SELECT","DELETE"], ans: 2 },
+            { q: "What is a Primary Key?", opts: ["First column in a table","A unique identifier for each row","A foreign table reference","An index"], ans: 1 },
+            { q: "Which JOIN returns all rows from both tables?", opts: ["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN"], ans: 3 },
+            { q: "What does a Foreign Key do?", opts: ["Encrypts data","Links two tables together","Creates an index","Deletes duplicate rows"], ans: 1 }
+          ] },
+        { title: "Database & Full Stack", type: "lesson", desc: "MySQL, MongoDB, full stack integration.",
+          submodules: [
+            { title: "MySQL & Database Design", videoId: "HXV3zeQKqGY", text: "Design schemas with tables, primary keys, foreign keys and CRUD operations. Learn INNER/LEFT/RIGHT JOINs, indexes and prepared statements to prevent SQL injection.", resources: [{label: "SQLZoo Practice", url: "https://sqlzoo.net"}, {label: "MySQL Documentation", url: "https://dev.mysql.com/doc/"}] },
+            { title: "Full Stack Integration", videoId: "Oe421EPjeBE", text: "Connect frontend to Express backend using fetch(). Handle CORS, JWT authentication, bcrypt password hashing and environment variables for secure full stack apps.", resources: [{label: "Full Stack Open", url: "https://fullstackopen.com/en/"}, {label: "JWT Introduction", url: "https://jwt.io/introduction"}] }
+          ] },
+        { title: "Database Quiz", type: "assessment", desc: "Test your database and full stack knowledge.",
+          quiz: [
+            { q: "Which Node.js framework is used for building APIs?", opts: ["React","Express","Angular","Vue"], ans: 1 },
+            { q: "What does npm stand for?", opts: ["Node Package Manager","New Project Module","Node Program Method","Network Package Manager"], ans: 0 },
+            { q: "Which method handles POST requests in Express?", opts: ["app.get()","app.post()","app.put()","app.delete()"], ans: 1 },
+            { q: "What is middleware in Express?", opts: ["A database","A function that runs between request and response","A CSS framework","A testing tool"], ans: 1 },
+            { q: "What does JWT stand for?", opts: ["Java Web Token","JSON Web Token","JavaScript Web Tool","JSON Web Transfer"], ans: 1 }
+          ] }
+    ],
+    "Business Analysis": [
+        { title: "BA Fundamentals", type: "lesson", desc: "Role of BA, stakeholder management.",
+          submodules: [
+            { title: "BA Role & Responsibilities", videoId: "yNYQ-616skY", text: "Understand the BA role in requirements gathering, documentation and communication. Learn BABOK framework, business needs analysis and key BA competencies.", resources: [{label: "IIBA BABOK Overview", url: "https://www.iiba.org/"}, {label: "Modern Analyst Resources", url: "https://www.modernanalyst.com/"}] },
+            { title: "Stakeholder Management", videoId: "cbP2N1BnbOU", text: "Identify and analyse stakeholders using power/interest grids. Manage expectations, engagement strategies and work as an Agile BA with user stories and backlog grooming.", resources: [{label: "Bridging the Gap BA", url: "https://www.bridging-the-gap.com/"}] }
+          ] },
+        { title: "BA Quiz", type: "assessment", desc: "Test your BA concepts.",
+          quiz: [
+            { q: "What is the primary role of a Business Analyst?", opts: ["Write code","Bridge business needs and technology","Manage servers","Design UI"], ans: 1 },
+            { q: "What does BRD stand for?", opts: ["Business Requirement Document","Basic Reporting Dashboard","Backend Request Data","Business Risk Definition"], ans: 0 },
+            { q: "What is a User Story?", opts: ["A bug report","A short description of a feature from user perspective","A test case","A deployment plan"], ans: 1 },
+            { q: "Which technique is used to gather requirements?", opts: ["Code review","Interviews and workshops","Unit testing","Database migration"], ans: 1 },
+            { q: "What does SWOT analysis stand for?", opts: ["Speed Work Output Time","Strengths Weaknesses Opportunities Threats","System Workflow Operations Testing","Software Work Order Tracking"], ans: 1 }
+          ] },
+        { title: "Requirements & Process Mapping", type: "lesson", desc: "Elicitation techniques, BPMN, flowcharts.",
+          submodules: [
+            { title: "Requirements Elicitation", videoId: "oI3DfNGMqqA", text: "Use interviews, workshops, surveys and observation to gather requirements. Document user stories, acceptance criteria, functional and non-functional requirements and use cases.", resources: [{label: "Requirements Elicitation Guide", url: "https://www.modernanalyst.com/"}, {label: "Bridging the Gap", url: "https://www.bridging-the-gap.com/"}] },
+            { title: "Process Mapping & BPMN", videoId: "RjHflb-QgVc", text: "Create flowcharts and BPMN diagrams with swim lanes. Document AS-IS processes, design TO-BE improvements and perform gap analysis to identify inefficiencies.", resources: [{label: "draw.io Free Tool", url: "https://app.diagrams.net"}, {label: "BPMN Specification", url: "https://www.bpmn.org/"}] }
+          ] },
+        { title: "Requirements Quiz", type: "assessment", desc: "Test your requirements and process knowledge.",
+          quiz: [
+            { q: "What does BPMN stand for?", opts: ["Business Process Model and Notation","Basic Process Management Network","Business Plan Management Node","Backend Process Mapping Notation"], ans: 0 },
+            { q: "What is an AS-IS process?", opts: ["Future state design","Current state documentation","A type of flowchart","A stakeholder map"], ans: 1 },
+            { q: "What shape represents a decision in a flowchart?", opts: ["Rectangle","Circle","Diamond","Arrow"], ans: 2 },
+            { q: "What is a Swim Lane diagram used for?", opts: ["Database design","Showing responsibilities across teams","Network diagrams","UI wireframes"], ans: 1 },
+            { q: "What is the TO-BE process?", opts: ["Current broken process","Improved future state process","A testing process","A deployment process"], ans: 1 }
+          ] },
+        { title: "Agile & Data Skills for BA", type: "lesson", desc: "Scrum, Excel, SQL for analysts.",
+          submodules: [
+            { title: "Agile & Scrum for BA", videoId: "XU0llRltyFM", text: "Understand Scrum roles, sprint ceremonies, product backlog and sprint backlog. Learn backlog grooming, story points, planning poker, velocity and Definition of Done.", resources: [{label: "Scrum.org Resources", url: "https://www.scrum.org/resources/what-is-scrum"}, {label: "Official Scrum Guide", url: "https://www.scrumguides.org/"}] },
+            { title: "Data Skills for BA", videoId: "PSNXoAs2ARI", text: "Use Excel VLOOKUP, pivot tables and charts for reporting. Write basic SQL SELECT, WHERE, GROUP BY queries. Interpret dashboards, define KPIs and present data to stakeholders.", resources: [{label: "SQLZoo Practice", url: "https://sqlzoo.net"}, {label: "Excel Easy Tutorial", url: "https://www.excel-easy.com/"}] }
+          ] },
+        { title: "Agile & Data Quiz", type: "assessment", desc: "Test your Agile and data skills.",
+          quiz: [
+            { q: "What is a Sprint in Scrum?", opts: ["A bug fix","A time-boxed iteration of work","A deployment","A test plan"], ans: 1 },
+            { q: "What does a Product Owner do?", opts: ["Writes code","Manages the product backlog","Tests software","Designs UI"], ans: 1 },
+            { q: "What are Story Points used for?", opts: ["Counting bugs","Estimating effort for user stories","Tracking time","Writing test cases"], ans: 1 },
+            { q: "What is velocity in Scrum?", opts: ["Speed of deployment","Amount of work completed per sprint","Number of bugs fixed","Team size"], ans: 1 },
+            { q: "What is the Definition of Done?", opts: ["A bug report","Agreed criteria for a story to be complete","A deployment checklist","A test plan"], ans: 1 }
+          ] }
+    ],
+    "UI/UX Design": [
+        { title: "Design Principles", type: "lesson", desc: "Colour theory, typography, layout.",
+          submodules: [
+            { title: "Visual Design Fundamentals", videoId: "ysEN5RaKOlA", text: "Learn colour theory (primary, complementary, contrast), typography (font pairing, hierarchy, readability), grid systems, whitespace, alignment and visual hierarchy.", resources: [{label: "IxDF Design Principles", url: "https://www.interaction-design.org/literature/topics/design-principles"}, {label: "WCAG Guidelines", url: "https://www.w3.org/WAI/WCAG21/quickref/"}] },
+            { title: "Gestalt & Accessibility", videoId: "9QnfWhtujPA", text: "Apply Gestalt principles (proximity, similarity, continuity, closure). Maintain consistency across screens. Follow WCAG accessibility guidelines including 4.5:1 contrast ratio and readable fonts.", resources: [{label: "Accessibility Checker", url: "https://webaim.org/resources/contrastchecker/"}] }
+          ] },
+        { title: "Design Quiz", type: "assessment", desc: "Test your design fundamentals.",
+          quiz: [
+            { q: "What are complementary colours?", opts: ["Same hue different shade","Colours opposite each other on the colour wheel","Black and white","Warm colours only"], ans: 1 },
+            { q: "What is visual hierarchy?", opts: ["Sorting files in folders","Guiding user attention through size, colour and placement","A type of font","A grid system"], ans: 1 },
+            { q: "What does whitespace do in design?", opts: ["Wastes space","Improves readability and focus","Adds colour","Creates animations"], ans: 1 },
+            { q: "What is the minimum contrast ratio for accessible text (WCAG AA)?", opts: ["2:1","3:1","4.5:1","7:1"], ans: 2 },
+            { q: "Which Gestalt principle groups nearby elements together?", opts: ["Similarity","Continuity","Proximity","Closure"], ans: 2 }
+          ] },
+        { title: "Figma & Wireframing", type: "lesson", desc: "Figma basics, wireframes, prototypes.",
+          submodules: [
+            { title: "Figma Fundamentals", videoId: "keoL8VMZbHs", text: "Use Figma frames, shapes, styles and constraints. Build reusable components with variants, use Auto Layout for responsive designs and collaborate with comments and version history.", resources: [{label: "Figma Help Center", url: "https://help.figma.com/hc/en-us"}, {label: "Figma Free for Students", url: "https://www.figma.com"}] },
+            { title: "Wireframing & Information Architecture", videoId: "D4NyN8iY5kc", text: "Create low-fi, mid-fi and high-fi wireframes. Build site maps and user flows. Apply navigation patterns (menus, tabs, breadcrumbs) and content hierarchy principles.", resources: [{label: "Whimsical Wireframing", url: "https://whimsical.com"}, {label: "Nielsen Norman Wireframing", url: "https://www.nngroup.com/articles/wireflows/"}] }
+          ] },
+        { title: "Figma & Wireframe Quiz", type: "assessment", desc: "Test your Figma and wireframing knowledge.",
+          quiz: [
+            { q: "What is a low-fidelity wireframe?", opts: ["A final polished design","A rough sketch showing basic layout","A coded prototype","A colour palette"], ans: 1 },
+            { q: "What does Information Architecture focus on?", opts: ["Visual design","Organising and structuring content","Animation","Colour theory"], ans: 1 },
+            { q: "What is a user flow?", opts: ["A type of animation","The path a user takes to complete a task","A colour scheme","A font choice"], ans: 1 },
+            { q: "Which tool is commonly used for wireframing?", opts: ["Photoshop","Excel","Figma","VS Code"], ans: 2 },
+            { q: "What is the purpose of wireframing?", opts: ["Add final colours","Plan layout and structure before visual design","Write code","Test performance"], ans: 1 }
+          ] },
+        { title: "Prototyping & User Research", type: "lesson", desc: "Interactive prototypes, usability testing.",
+          submodules: [
+            { title: "Interactive Prototyping", videoId: "A9mFNKSBMak", text: "Link Figma frames with hotspots, add transitions (slide, dissolve, smart animate), create micro-interactions, overlays for modals and tooltips, and test with real users.", resources: [{label: "Figma Prototyping Guide", url: "https://help.figma.com/hc/en-us/articles/360040314193"}, {label: "Usability Testing 101", url: "https://www.nngroup.com/articles/usability-testing-101/"}] },
+            { title: "User Research Methods", videoId: "gYTSD5EnFNQ", text: "Conduct user interviews, contextual inquiry and usability testing. Use surveys, Google Analytics and heatmaps for quantitative data. Create data-driven user personas.", resources: [{label: "Nielsen Norman UX Research", url: "https://www.nngroup.com/articles/which-ux-research-methods/"}, {label: "Usability.gov Methods", url: "https://www.usability.gov/how-to-and-tools/methods/index.html"}] }
+          ] },
+        { title: "Prototyping & Research Quiz", type: "assessment", desc: "Test your prototyping and research knowledge.",
+          quiz: [
+            { q: "What is the purpose of a prototype?", opts: ["Write final code","Simulate the product for testing and feedback","Create a database","Deploy the app"], ans: 1 },
+            { q: "What is usability testing?", opts: ["Testing server performance","Observing real users interact with a design","Checking code quality","Testing API endpoints"], ans: 1 },
+            { q: "What is a user persona?", opts: ["A real user account","A fictional representation of a target user","A design component","A colour palette"], ans: 1 },
+            { q: "What does A/B testing compare?", opts: ["Two databases","Two design variations","Two servers","Two programming languages"], ans: 1 },
+            { q: "What is card sorting used for?", opts: ["Sorting design files","Understanding user mental models for IA","Testing animations","Colour selection"], ans: 1 }
+          ] }
+    ],
+    "Cyber Security": [
+        { title: "Security Fundamentals", type: "lesson", desc: "CIA triad, threat landscape, attack types.",
+          submodules: [
+            { title: "Core Security Concepts", videoId: "inWWhr5tnEA", text: "Understand the CIA Triad (Confidentiality, Integrity, Availability), threat landscape including malware, phishing, ransomware and social engineering, and the principle of least privilege.", resources: [{label: "Cybrary Free Intro Course", url: "https://www.cybrary.it/"}, {label: "SANS Reading Room", url: "https://www.sans.org/reading-room/"}] },
+            { title: "Cryptography Basics", videoId: "jhXCTbFnK8o", text: "Learn symmetric vs asymmetric encryption, hashing (MD5, SHA-256), password hashing, SSL/TLS for secure communication, HTTPS and digital signatures for authentication.", resources: [{label: "Crypto101 Free Book", url: "https://www.crypto101.io/"}] }
+          ] },
+        { title: "Fundamentals Quiz", type: "assessment", desc: "Test your security concepts.",
+          quiz: [
+            { q: "What does the CIA triad stand for?", opts: ["Central Intelligence Agency","Confidentiality Integrity Availability","Cyber Intrusion Analysis","Control Integrity Access"], ans: 1 },
+            { q: "What is phishing?", opts: ["A network attack","Tricking users into revealing sensitive info via fake emails","A type of malware","A firewall bypass"], ans: 1 },
+            { q: "What does encryption do?", opts: ["Deletes data","Converts data into unreadable format","Speeds up network","Blocks viruses"], ans: 1 },
+            { q: "What is a DoS attack?", opts: ["Stealing passwords","Overwhelming a server to make it unavailable","Injecting SQL code","Intercepting network traffic"], ans: 1 },
+            { q: "What is the principle of least privilege?", opts: ["Give all users admin access","Give users only the access they need","Block all internet access","Use weak passwords"], ans: 1 }
+          ] },
+        { title: "Network Security & Ethical Hacking", type: "lesson", desc: "Firewalls, VPNs, Kali Linux, Nmap.",
+          submodules: [
+            { title: "Network Security", videoId: "sdpxddDzXfE", text: "Learn firewalls (packet filtering, stateful inspection), VPNs, IDS/IPS, network segmentation with DMZ and VLANs. Understand TCP/IP, DNS, SSH protocols and Wireshark packet analysis.", resources: [{label: "TryHackMe Networking", url: "https://tryhackme.com/room/introtonetworking"}, {label: "Nmap Book", url: "https://nmap.org/book/"}] },
+            { title: "Ethical Hacking Basics", videoId: "fNzpcB7ODxQ", text: "Use Kali Linux for penetration testing. Follow phases: reconnaissance, scanning, exploitation, post-exploitation, reporting. Use Nmap for port scanning and understand legal requirements.", resources: [{label: "TryHackMe Free Labs", url: "https://tryhackme.com"}, {label: "Metasploit Unleashed", url: "https://www.offensive-security.com/metasploit-unleashed/"}] }
+          ] },
+        { title: "Network & Hacking Quiz", type: "assessment", desc: "Test your network and ethical hacking knowledge.",
+          quiz: [
+            { q: "What is Nmap used for?", opts: ["Web design","Network scanning and port discovery","Password cracking","File encryption"], ans: 1 },
+            { q: "What is the first phase of ethical hacking?", opts: ["Exploitation","Reporting","Reconnaissance","Scanning"], ans: 2 },
+            { q: "What is Metasploit?", opts: ["A firewall","An exploitation framework","A VPN tool","A password manager"], ans: 1 },
+            { q: "What does CTF stand for?", opts: ["Cyber Threat Framework","Capture The Flag","Central Testing Facility","Code Test File"], ans: 1 },
+            { q: "What must an ethical hacker always have before testing?", opts: ["Admin password","Written permission from the owner","Kali Linux","VPN access"], ans: 1 }
+          ] },
+        { title: "OWASP & Incident Response", type: "lesson", desc: "Web vulnerabilities, IR framework, cloud security.",
+          submodules: [
+            { title: "OWASP Top 10", videoId: "gNmWybAyBsI", text: "Learn the most critical web vulnerabilities: SQL injection, broken authentication, XSS, IDOR, security misconfiguration, CSRF and sensitive data exposure. Apply SAST and DAST testing.", resources: [{label: "OWASP Top 10 Guide", url: "https://owasp.org/www-project-top-ten/"}, {label: "OWASP Cheat Sheets", url: "https://cheatsheetseries.owasp.org/"}] },
+            { title: "Incident Response & Cloud Security", videoId: "ULGILG-ZhO0", text: "Follow IR phases: preparation, detection, containment, eradication, recovery. Understand cloud security with IAM, shared responsibility model, encryption, CloudTrail monitoring and compliance.", resources: [{label: "NIST IR Guide", url: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf"}, {label: "AWS Security Learning", url: "https://aws.amazon.com/security/security-learning/"}] }
+          ] },
+        { title: "OWASP & IR Quiz", type: "assessment", desc: "Test your OWASP and incident response knowledge.",
+          quiz: [
+            { q: "What does XSS stand for?", opts: ["Extra Style Sheet","Cross-Site Scripting","External Script Source","Cross-Server System"], ans: 1 },
+            { q: "What is SQL Injection?", opts: ["A database backup","Inserting malicious SQL into input fields","A type of encryption","A network protocol"], ans: 1 },
+            { q: "What is the first phase of Incident Response?", opts: ["Detection","Containment","Preparation","Recovery"], ans: 2 },
+            { q: "What does IAM stand for in cloud security?", opts: ["Internet Access Management","Identity and Access Management","Internal Audit Module","Integrated App Manager"], ans: 1 },
+            { q: "What is the Shared Responsibility Model?", opts: ["Sharing passwords","Division of security duties between cloud provider and customer","Sharing encryption keys","A backup strategy"], ans: 1 }
+          ] }
+    ]
+};
+
+const typeIcon  = { lesson: "📖", assessment: "📝" };
+const typeLabel = { lesson: "Lesson", assessment: "Assessment" };
+
+let _currentCourse = null;
+
+function closeModuleModal() {
+    document.getElementById("moduleModal").style.display = "none";
+}
+
+function openLesson(i, course) {
+    const mod = SYLLABUS[course][i];
+    const body = document.getElementById("moduleModalBody");
+    const submodules = mod.submodules || [];
+
+    let subHtml = '';
+    submodules.forEach((sub, si) => {
+        const videoId = sub.videoId || '';
+        const videoHtml = videoId
+            ? `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:14px;">
+                <iframe id="lessonVideo_${i}_${si}" src="https://www.youtube.com/embed/${videoId}?enablejsapi=1" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe>
+               </div>`
+            : '';
+        const pdfHtml = (sub.resources || []).map(r =>
+            `<a href="${r.url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;color:#7c4daa;font-weight:600;font-size:0.85rem;margin-right:12px;margin-bottom:6px;">📄 ${r.label}</a>`
+        ).join('');
+
+        subHtml += `
+        <div style="background:#f8f4ff;border:1.5px solid #e0d4f5;border-radius:12px;padding:20px 22px;margin-bottom:16px;">
+            <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7c4daa;margin-bottom:8px;">Module ${si+1}</div>
+            <div style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:12px;">${sub.title}</div>
+            ${videoHtml}
+            <div style="font-size:0.88rem;color:#444;line-height:1.7;margin-bottom:12px;">${sub.text}</div>
+            ${pdfHtml ? `<div style="margin-top:8px;padding:10px 14px;background:#fff;border-radius:8px;border:1px solid #e0d4f5;"><span style="font-size:0.75rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.08em;">📚 Resources</span><br><div style="margin-top:6px;">${pdfHtml}</div></div>` : ''}
+        </div>`;
+    });
+
+    body.innerHTML = `
+        <span class="db-mod-tag db-tag-lesson" style="margin-bottom:14px;display:inline-block;">Lesson ${i+1}</span>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;color:#1a1a2e;margin-bottom:16px;">${mod.title}</div>
+        ${subHtml}
+        <div id="videoNotice_${i}" style="display:flex;align-items:center;gap:8px;padding:11px 16px;background:#fff8e1;border:1.5px solid #f6c90e;border-radius:10px;color:#b7791f;font-size:0.85rem;font-weight:600;margin-top:8px;">
+            <i class="fas fa-play-circle"></i> Watch the video(s) fully to unlock the completion button.
+        </div>
+        <button id="markDoneBtn_${i}" onclick="completeMod(${i},'${course}')"
+            style="display:none;margin-top:16px;width:100%;padding:13px;background:linear-gradient(135deg,#1a1a2e,#2d2d5e);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">
+            <i class="fas fa-check"></i> Mark as Done
+        </button>`;
+
+    document.getElementById("moduleModal").style.display = "flex";
+
+    // YouTube IFrame API — unlock button only after ALL videos end
+    const totalVideos = submodules.filter(s => s.videoId).length;
+    if (totalVideos === 0) {
+        document.getElementById(`videoNotice_${i}`).style.display = 'none';
+        document.getElementById(`markDoneBtn_${i}`).style.display = 'block';
+        return;
+    }
+    let videosEnded = 0;
+    function checkAllEnded() {
+        if (videosEnded >= totalVideos) {
+            document.getElementById(`videoNotice_${i}`).style.display = 'none';
+            document.getElementById(`markDoneBtn_${i}`).style.display = 'block';
+        }
+    }
+    function initYTPlayers() {
+        submodules.forEach((sub, si) => {
+            if (!sub.videoId) return;
+            const iframe = document.getElementById(`lessonVideo_${i}_${si}`);
+            if (!iframe) return;
+            new YT.Player(iframe, {
+                events: {
+                    onStateChange: function(e) {
+                        if (e.data === YT.PlayerState.ENDED) { videosEnded++; checkAllEnded(); }
+                    }
+                }
+            });
+        });
+    }
+    if (window.YT && window.YT.Player) {
+        initYTPlayers();
+    } else {
+        window._ytLessonCallbacks = window._ytLessonCallbacks || [];
+        window._ytLessonCallbacks.push(initYTPlayers);
+        if (!document.getElementById('ytApiScript')) {
+            const s = document.createElement('script');
+            s.id = 'ytApiScript';
+            s.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(s);
+        }
+    }
+}
+
+
+
+// YouTube IFrame API global ready callback
+function onYouTubeIframeAPIReady() {
+    (window._ytLessonCallbacks || []).forEach(fn => fn());
+    window._ytLessonCallbacks = [];
+}
+
+function openQuiz(i, course) {
+    const mod = SYLLABUS[course][i];
+    const quiz = mod.quiz;
+    const body = document.getElementById("moduleModalBody");
+    let html = `<span class="db-mod-tag db-tag-assessment" style="margin-bottom:14px;display:inline-block;">Quiz - ${mod.title}</span>
+        <p style="color:#666;font-size:0.88rem;margin-bottom:20px;">Answer all 5 questions. You need <b>3 or more correct</b> to pass.</p>`;
+    quiz.forEach((q, qi) => {
+        html += `<div style="margin-bottom:20px;">
+            <p style="font-weight:600;color:#1a1a2e;margin-bottom:10px;">${qi+1}. ${q.q}</p>`;
+        q.opts.forEach((opt, oi) => {
+            html += `<label style="display:flex;align-items:center;gap:10px;padding:9px 14px;border:1.5px solid #e0d4f5;border-radius:8px;margin-bottom:7px;cursor:pointer;font-size:0.9rem;">
+                <input type="radio" name="q${qi}" value="${oi}" style="accent-color:#7c4daa;"> ${opt}
+            </label>`;
+        });
+        html += `</div>`;
+    });
+    html += `<button onclick="submitQuiz(${i},'${course}')"
+        style="margin-top:8px;width:100%;padding:13px;background:linear-gradient(135deg,#7c4daa,#5a2d8a);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">
+        Submit Quiz
+    </button>`;
+    body.innerHTML = html;
+    document.getElementById("moduleModal").style.display = "flex";
+}
+
+function submitQuiz(i, course) {
+    const mod = SYLLABUS[course][i];
+    const quiz = mod.quiz;
+    let score = 0;
+    let allAnswered = true;
+    quiz.forEach((q, qi) => {
+        const sel = document.querySelector(`input[name="q${qi}"]:checked`);
+        if (!sel) { allAnswered = false; return; }
+        if (parseInt(sel.value) === q.ans) score++;
+    });
+    if (!allAnswered) {
+        alert("Please answer all 5 questions before submitting.");
+        return;
+    }
+    const body = document.getElementById("moduleModalBody");
+    if (score >= 3) {
+        body.innerHTML = `
+            <div style="text-align:center;padding:20px 0;">
+                <div style="font-size:3rem;margin-bottom:12px;">🎉</div>
+                <h3 style="color:#276749;font-family:'Poppins',sans-serif;margin-bottom:8px;">You Passed!</h3>
+                <p style="color:#666;margin-bottom:20px;">Score: <b>${score}/5</b> — Great job!</p>
+                <button onclick="completeMod(${i},'${course}')"
+                    style="padding:13px 32px;background:linear-gradient(135deg,#38a169,#276749);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">
+                    Continue to Next Module
+                </button>
+            </div>`;
+    } else {
+        body.innerHTML = `
+            <div style="text-align:center;padding:20px 0;">
+                <div style="font-size:3rem;margin-bottom:12px;">😔</div>
+                <h3 style="color:#c53030;font-family:'Poppins',sans-serif;margin-bottom:8px;">Not Passed</h3>
+                <p style="color:#666;margin-bottom:20px;">Score: <b>${score}/5</b> — You need at least 3 to pass. Please retry.</p>
+                <button onclick="openQuiz(${i},'${course}')"
+                    style="padding:13px 32px;background:linear-gradient(135deg,#c53030,#9b2c2c);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">
+                    Retry Quiz
+                </button>
+            </div>`;
+    }
+}
+
+function completeMod(index, course) {
+    closeModuleModal();
+    const email = localStorage.getItem("gg_email");
+    fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, course_name: course, module_index: index })
+    })
+    .then(r => r.json())
+    .then(data => { if (!data.error) location.reload(); })
+    .catch(() => {
+        const key = "gg_progress_" + email;
+        const progress = JSON.parse(localStorage.getItem(key) || "[]");
+        if (!progress.includes(index)) progress.push(index);
+        localStorage.setItem(key, JSON.stringify(progress));
+        location.reload();
+    });
+}
+
+function showCertificate(courseName) {
+    const name   = localStorage.getItem("gg_loggedIn") || "Student";
+    const date   = new Date().toLocaleDateString("en-IN", { year:"numeric", month:"long", day:"numeric" });
+    document.getElementById("certName").textContent   = name;
+    document.getElementById("certCourse").textContent = courseName;
+    document.getElementById("certDate").textContent   = date;
+    document.getElementById("certModal").style.display = "flex";
+}
+
+function printCertificate() {
+    const cert = document.getElementById("certificateBox").outerHTML;
+    const win  = window.open("", "_blank");
+    win.document.write(`<!DOCTYPE html><html><head><title>Certificate</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>body{margin:0;padding:32px;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;}@media print{body{padding:0;}}</style>
+        </head><body>${cert}<script>window.onload=function(){window.print();}<\/script></body></html>`);
+    win.document.close();
+}
+
+function buildRingSVG(id, pct) {
+    const circ = 2 * Math.PI * 34;
+    const offset = circ - (circ * pct / 100);
+    const color = pct === 100 ? '#38a169' : '#7c4daa';
+    return `<svg viewBox="0 0 80 80" style="width:72px;height:72px;">
+        <circle cx="40" cy="40" r="34" fill="none" stroke="#ede7f6" stroke-width="7"/>
+        <circle cx="40" cy="40" r="34" fill="none" stroke="${color}" stroke-width="7"
+            stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+            transform="rotate(-90 40 40)"/>
+        <text x="40" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="${color}" font-family="DM Sans,sans-serif">${pct}%</text>
+    </svg>`;
+}
+
+function renderCourseSection(courseName, completedSet, enrolledDate, container) {
+    const modules = SYLLABUS[courseName] || [];
+    const total   = modules.length;
+    const done    = Math.min(completedSet.size, total);
+    const pct     = total ? Math.min(100, Math.round((done / total) * 100)) : 0;
+    const isComplete = done === total && total > 0;
+    const safeId  = courseName.replace(/[^a-zA-Z0-9]/g, '_');
+
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:40px;';
+    section.innerHTML = `
+        <div class="db-course-header">
+            <div>
+                <div class="section-label" style="text-align:left;">Enrolled Course</div>
+                <div class="db-course-title">${courseName}</div>
+                <div class="db-course-meta">${enrolledDate ? 'Enrolled on ' + enrolledDate : ''}</div>
+            </div>
+            <div class="db-progress-ring-wrap">${buildRingSVG(safeId, pct)}</div>
+        </div>
+        ${isComplete ? `
+        <div style="background:linear-gradient(135deg,#1a1a2e,#2d2d5e);border-radius:14px;padding:28px 32px;margin-bottom:24px;text-align:center;border:1px solid rgba(179,157,219,0.3);">
+            <div style="font-size:2rem;margin-bottom:8px;">🎓</div>
+            <h3 style="font-family:'Poppins',sans-serif;color:#fff;font-size:1.2rem;margin-bottom:6px;">Course Completed!</h3>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:16px;">Your certificate is ready.</p>
+            <button onclick="showCertificate('${courseName}')" style="padding:10px 28px;background:linear-gradient(135deg,#b39ddb,#7c4daa);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">View Certificate</button>
+        </div>` : ''}
+        <div class="db-section-title">Course Syllabus</div>
+        <div id="modules_${safeId}" class="db-modules"></div>
+    `;
+    container.appendChild(section);
+
+    const modContainer = section.querySelector(`#modules_${safeId}`);
+    modules.forEach((mod, i) => {
+        const isDone = completedSet.has(i);
+        const locked = i > 0 && !completedSet.has(i - 1) && !isDone;
+        const card   = document.createElement('div');
+        card.className = 'db-module-card' + (isDone ? ' done' : '') + (locked ? ' locked' : '');
+
+        let actionBtn = '';
+        if (isDone) {
+            actionBtn = `<span class="db-mod-status done-badge"><i class="fas fa-check-circle"></i> Completed</span>`;
+        } else if (locked) {
+            actionBtn = `<span class="db-mod-status lock-badge"><i class="fas fa-lock"></i> Locked</span>`;
+        } else if (mod.type === 'lesson') {
+            actionBtn = `<button class="db-mod-btn" onclick="openLesson(${i},'${courseName}')">Start Lesson</button>`;
+        } else if (mod.type === 'assessment') {
+            actionBtn = `<button class="db-mod-btn" style="background:linear-gradient(135deg,#7c4daa,#5a2d8a);" onclick="openQuiz(${i},'${courseName}')">Take Quiz</button>`;
+        }
+
+        card.innerHTML = `
+            <div class="db-mod-left">
+                <div class="db-mod-num">${i + 1}</div>
+                <div class="db-mod-icon">${locked ? '🔒' : typeIcon[mod.type]}</div>
+                <div class="db-mod-info">
+                    <div class="db-mod-title">${mod.title}</div>
+                    <div class="db-mod-desc">${locked ? 'Complete the previous module to unlock.' : mod.desc}</div>
+                    <span class="db-mod-tag db-tag-${mod.type}">${typeLabel[mod.type]}</span>
+                </div>
+            </div>
+            <div class="db-mod-right">${actionBtn}</div>`;
+        modContainer.appendChild(card);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem("gg_email");
+    const name  = localStorage.getItem("gg_loggedIn");
+    const role  = localStorage.getItem("gg_role");
+    if (!email || !name) { window.location.href = "login.html"; return; }
+    // Redirect admin away from student dashboard
+    if (role === 'admin') { window.location.href = "admin.html"; return; }
+
+    document.getElementById("dbName").textContent   = name;
+    document.getElementById("dbEmail").textContent  = email;
+    document.getElementById("dbAvatar").textContent = name.charAt(0).toUpperCase();
+
+    fetch(`/api/dashboard?email=${encodeURIComponent(email)}`)
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+
+            document.getElementById("dbJoined").textContent =
+                "Member since " + new Date(data.user.created_at).toLocaleDateString("en-IN", { year:"numeric", month:"long" });
+
+            const enrollments = data.enrollments || [];
+            if (!enrollments.length) {
+                document.getElementById("dbNoCourse").style.display = "block";
+                return;
+            }
+
+            const summaryEl   = document.getElementById("dbEnrolledSummary");
+            const tabsEl      = document.getElementById("dbTabs");
+            const allCourses  = document.getElementById("dbAllCourses");
+            summaryEl.style.display = "block";
+
+            enrollments.forEach((enrollment, idx) => {
+                const cName = enrollment.course_name;
+                const modules = SYLLABUS[cName] || [];
+                const completedSet = new Set(
+                    data.progress
+                        .filter(p => p.completed && p.course_name === cName)
+                        .map(p => parseInt(p.module_index))
+                        .filter(idx => idx >= 0 && idx < modules.length)
+                );
+                const pct = modules.length ? Math.min(100, Math.round((completedSet.size / modules.length) * 100)) : 0;
+                const enrolledDate = new Date(enrollment.submitted_at).toLocaleDateString("en-IN", { year:"numeric", month:"short", day:"numeric" });
+
+                // Tab button
+                const tab = document.createElement("button");
+                tab.className = "db-tab-btn" + (idx === 0 ? " active" : "");
+                tab.dataset.course = cName;
+                tab.innerHTML = `
+                    <span class="db-tab-name">${cName}</span>
+                    <span class="db-tab-pct" style="background:${pct===100?'#c6f6d5':'#ede7f6'};color:${pct===100?'#276749':'#7c4daa'}">${pct}%</span>`;
+                tab.onclick = () => switchTab(cName);
+                tabsEl.appendChild(tab);
+
+                // Course panel
+                const panel = document.createElement("div");
+                panel.className = "db-course-panel";
+                panel.id = "panel_" + cName.replace(/[^a-zA-Z0-9]/g, '_');
+                panel.style.display = idx === 0 ? "block" : "none";
+                allCourses.appendChild(panel);
+
+                renderCourseSection(cName, completedSet, enrolledDate, panel);
+            });
+
+            function switchTab(courseName) {
+                document.querySelectorAll(".db-tab-btn").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".db-course-panel").forEach(p => p.style.display = "none");
+                document.querySelector(`.db-tab-btn[data-course="${courseName}"]`).classList.add("active");
+                document.getElementById("panel_" + courseName.replace(/[^a-zA-Z0-9]/g, '_')).style.display = "block";
+            }
+        })
+        .catch((err) => {
+            console.error("Dashboard fetch error:", err);
+            document.getElementById("dbNoCourse").style.display = "block";
+        });
+});
+
+function updateRing(done, total) {
+    const pct    = total ? Math.round((done / total) * 100) : 0;
+    const circle = document.getElementById("dbRingFill");
+    if (!circle) return;
+    const circ   = 2 * Math.PI * 34;
+    circle.style.strokeDashoffset = circ - (circ * pct / 100);
+    document.getElementById("dbRingLabel").textContent = pct + "%";
+}
+
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModuleModal(); });
+document.getElementById("moduleModal").addEventListener("click", e => {
+    if (e.target === document.getElementById("moduleModal")) closeModuleModal();
+});
+</script>
+</body>
+</html>

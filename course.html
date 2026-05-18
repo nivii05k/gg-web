@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><img src="LogoO.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<div class="section-label" style="padding-top:56px;">What We Offer</div>
+<h1 class="page-title" style="margin-top:8px;">Our Courses</h1>
+<p class="page-subtitle">Click a course to see details and apply</p>
+
+<div class="course-container">
+    <div class="course-card" onclick="showCourse(0)">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Frontend Development</h3>
+            <p>Learn HTML, CSS, JavaScript basics.</p>
+            <span class="course-info">⏳ 5 Months | 💰 ₹15000</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(1)">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Data Analysis</h3>
+            <p>Excel, Python & visualization.</p>
+            <span class="course-info">⏳ 3 Months | 💰 ₹10000</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(2)">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Software Testing</h3>
+            <p>Manual + automation basics.</p>
+            <span class="course-info">⏳ 3 Months | 💰 ₹15500</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(3)">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Web Development</h3>
+            <p>Frontend + backend basics.</p>
+            <span class="course-info">⏳ 4 Months | 💰 ₹15000</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(4)">
+        <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Business Analysis</h3>
+            <p>Business + data skills.</p>
+            <span class="course-info">⏳ 3 Months | 💰 ₹15500</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(5)">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80">
+        <div class="course-card-body">
+            <h3>UI/UX Design</h3>
+            <p>Design modern apps & user experiences.</p>
+            <span class="course-info">⏳ 3 Months | 💰 ₹12000</span>
+        </div>
+    </div>
+    <div class="course-card" onclick="showCourse(6)">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80">
+        <div class="course-card-body">
+            <h3>Cyber Security</h3>
+            <p>Learn ethical hacking & security basics.</p>
+            <span class="course-info">⏳ 4 Months | 💰 ₹18000</span>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="courseModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<footer class="footer-rich">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-brand">Great Gaining Institution</div>
+            <p>Chennai's trusted skill-development centre. Practical training, real placements, affordable fees.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Courses</div>
+            <a href="course.html">Frontend Development</a>
+            <a href="course.html">Data Analysis</a>
+            <a href="course.html">Software Testing</a>
+            <a href="course.html">Cyber Security</a>
+            <a href="course.html">UI/UX Design</a>
+            <a href="course.html">Web Development</a>
+            <a href="course.html">Business Analysis</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Quick Links</div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="apply.html">Apply Now</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contact Us</div>
+            <p>📞 +91 88388 75601</p>
+            <p>📧 info@greatgaining.in</p>
+            <p>📍 Chennai, Tamil Nadu – 600001</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 <span>Great Gaining Institution</span> &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; All rights reserved
+    </div>
+</footer>
+
+<script src="Script.js"></script>
+</body>
+</html>

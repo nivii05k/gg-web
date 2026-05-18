@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><img src="LogoO.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="section-label" style="color:var(--purple);">Who We Are</div>
+    <h1>Shaping Careers,<br><span>Changing Lives</span></h1>
+    <p>A Chennai-based training institution built on one belief — practical skills beat theory every time.</p>
+</section>
+
+<!-- STATS STRIP -->
+<div class="about-stats-strip">
+    <div class="about-stat anim-d1"><div class="about-stat-num">2K+</div><div class="about-stat-label">Students Trained</div></div>
+    <div class="about-stat anim-d2"><div class="about-stat-num">7</div><div class="about-stat-label">Courses Offered</div></div>
+    <div class="about-stat anim-d3"><div class="about-stat-num">95%</div><div class="about-stat-label">Placement Rate</div></div>
+    <div class="about-stat anim-d4"><div class="about-stat-num">50+</div><div class="about-stat-label">Hiring Partners</div></div>
+    <div class="about-stat anim-d5"><div class="about-stat-num">3+</div><div class="about-stat-label">Years Running</div></div>
+</div>
+
+<!-- OUR STORY -->
+<section class="sec">
+    <div class="story-grid">
+        <div class="story-text anim-slide-left">
+            <div class="section-label" style="text-align:left;">Our Story</div>
+            <h2 class="sec-title" style="text-align:left;">Started small.<br><span>Built with purpose.</span></h2>
+            <p>Great Gaining Institution was founded in 2022 by a group of IT professionals who saw a clear gap — engineering graduates with degrees but no practical skills, struggling to crack even entry-level interviews.</p>
+            <p>We started with a single batch of 20 students in a small classroom in Chennai. Today, we have trained over 2,000 students across 7 courses, with a 95% placement rate that speaks for itself.</p>
+            <p>Our approach has always been simple: teach what companies actually need, not what textbooks say. Every course is built around real job descriptions, real tools, and real projects.</p>
+        </div>
+        <div class="story-highlights">
+            <div class="highlight-card anim-d1">
+                <div class="highlight-year">2022</div>
+                <div class="highlight-text">Founded with 1 course and 20 students in Chennai</div>
+            </div>
+            <div class="highlight-card anim-d2">
+                <div class="highlight-year">2023</div>
+                <div class="highlight-text">Expanded to 5 courses, crossed 500 students trained</div>
+            </div>
+            <div class="highlight-card anim-d3">
+                <div class="highlight-year">2024</div>
+                <div class="highlight-text">Launched Cyber Security & UI/UX, 30+ hiring partners onboarded</div>
+            </div>
+            <div class="highlight-card anim-d4">
+                <div class="highlight-year">2025</div>
+                <div class="highlight-text">2,000+ students trained, 50+ hiring partners, 95% placement rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="sec sec-tinted">
+    <div class="section-label anim-on-scroll">What Drives Us</div>
+    <h2 class="sec-title anim-on-scroll">Our Core <span>Values</span></h2>
+    <div class="values-grid">
+        <div class="value-card anim-d1">
+            <div class="value-icon">🎯</div>
+            <h3>Practical First</h3>
+            <p>Every lesson is hands-on. We skip the fluff and focus on skills you can use from day one on the job.</p>
+        </div>
+        <div class="value-card anim-d2">
+            <div class="value-icon">🤝</div>
+            <h3>Student Success</h3>
+            <p>Your placement is our goal. We don't consider a course complete until you have a job offer in hand.</p>
+        </div>
+        <div class="value-card anim-d3">
+            <div class="value-icon">💡</div>
+            <h3>Continuous Learning</h3>
+            <p>Technology changes fast. We update our curriculum every quarter to stay aligned with industry demands.</p>
+        </div>
+        <div class="value-card anim-d4">
+            <div class="value-icon">🌍</div>
+            <h3>Accessibility</h3>
+            <p>Quality education should be affordable. We keep fees low and offer flexible payment plans for everyone.</p>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT WE TEACH -->
+<section class="sec">
+    <div class="section-label anim-on-scroll">Our Curriculum</div>
+    <h2 class="sec-title anim-on-scroll">What You'll <span>Learn & Build</span></h2>
+    <div class="curriculum-grid">
+        <div class="curriculum-item anim-d1">
+            <div class="curr-icon">💻</div>
+            <div class="curr-body">
+                <h3>Frontend Development</h3>
+                <p>HTML5, CSS3, JavaScript ES6+, React basics, responsive design, Git & GitHub. Build 3 live projects.</p>
+                <span class="curr-tag">5 Months · ₹15,000</span>
+            </div>
+        </div>
+        <div class="curriculum-item anim-d2">
+            <div class="curr-icon">📊</div>
+            <div class="curr-body">
+                <h3>Data Analysis</h3>
+                <p>Excel, Python (Pandas, NumPy), SQL, Power BI dashboards, data storytelling. Work on real datasets.</p>
+                <span class="curr-tag">3 Months · ₹10,000</span>
+            </div>
+        </div>
+        <div class="curriculum-item anim-d3">
+            <div class="curr-icon">🧪</div>
+            <div class="curr-body">
+                <h3>Software Testing</h3>
+                <p>Manual testing, SDLC, test case writing, Selenium automation, JIRA, bug reporting workflows.</p>
+                <span class="curr-tag">3 Months · ₹15,500</span>
+            </div>
+        </div>
+        <div class="curriculum-item anim-d4">
+            <div class="curr-icon">🌐</div>
+            <div class="curr-body">
+                <h3>Web Development</h3>
+                <p>Full-stack: HTML/CSS/JS frontend + Node.js/Express backend, MySQL, REST APIs, deployment.</p>
+                <span class="curr-tag">4 Months · ₹15,000</span>
+            </div>
+        </div>
+        <div class="curriculum-item anim-d5">
+            <div class="curr-icon">🔒</div>
+            <div class="curr-body">
+                <h3>Cyber Security</h3>
+                <p>Network security, ethical hacking basics, OWASP Top 10, penetration testing tools, security audits.</p>
+                <span class="curr-tag">4 Months · ₹18,000</span>
+            </div>
+        </div>
+        <div class="curriculum-item anim-d6">
+            <div class="curr-icon">🎨</div>
+            <div class="curr-body">
+                <h3>UI/UX Design</h3>
+                <p>Figma, wireframing, prototyping, user research, design systems, accessibility, portfolio building.</p>
+                <span class="curr-tag">3 Months · ₹12,000</span>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;">
+        <a href="course.html" class="btn btn-primary anim-on-scroll">View All Courses</a>
+    </div>
+</section>
+
+<!-- MISSION & VISION -->
+<div class="section-label anim-on-scroll" style="padding-top:20px;">Our Purpose</div>
+<div class="mv-container">
+    <div class="mv-box anim-slide-left">
+        <h2>Our Mission</h2>
+        <p>To provide quality education that is simple and practical</p>
+        <p>To help students build strong career skills and confidence</p>
+        <p>To create opportunities for learning and growth for everyone</p>
+    </div>
+    <div class="mv-box anim-slide-right">
+        <h2>Our Vision</h2>
+        <p>To become a leading institution known for student success</p>
+        <p>To empower learners with knowledge and real-world skills</p>
+        <p>To shape a better future through education and innovation</p>
+    </div>
+</div>
+
+<!-- FAQ -->
+<section class="sec sec-tinted">
+    <div class="section-label anim-on-scroll">Common Questions</div>
+    <h2 class="sec-title anim-on-scroll">Frequently Asked <span>Questions</span></h2>
+    <div class="faq-list">
+        <div class="faq-item anim-d1">
+            <div class="faq-q">Do I need prior coding experience to join?</div>
+            <div class="faq-a">No. Most of our courses are designed for absolute beginners. We start from the basics and build up gradually. A basic understanding of computers is enough.</div>
+        </div>
+        <div class="faq-item anim-d2">
+            <div class="faq-q">What is the batch schedule? Are there weekend batches?</div>
+            <div class="faq-a">We offer both weekday (Mon–Fri, 2 hrs/day) and weekend (Sat–Sun, 4 hrs/day) batches. New batches start every month. You can choose what fits your schedule.</div>
+        </div>
+        <div class="faq-item anim-d3">
+            <div class="faq-q">Is placement guaranteed after the course?</div>
+            <div class="faq-a">We provide full placement assistance — resume building, mock interviews, and direct referrals to our 50+ hiring partners. While we cannot legally guarantee a job, 95% of our students get placed within 3 months of completing the course.</div>
+        </div>
+        <div class="faq-item anim-d4">
+            <div class="faq-q">What certificate will I receive?</div>
+            <div class="faq-a">You will receive a course completion certificate from Great Gaining Institution. This certificate is recognised by our hiring partners and can be added to your LinkedIn profile and resume.</div>
+        </div>
+        <div class="faq-item anim-d5">
+            <div class="faq-q">Are there any EMI or instalment options for fees?</div>
+            <div class="faq-a">Yes. We offer a 2-instalment payment plan for all courses — 60% at the time of enrolment and 40% after the first month. Contact us to discuss your options.</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+    <div class="section-label anim-on-scroll" style="color:var(--purple);">Take the First Step</div>
+    <h2 class="anim-on-scroll">Your career starts here.</h2>
+    <p class="anim-on-scroll">Join 2,000+ students who chose Great Gaining Institution to build their future. New batch starting soon.</p>
+    <div class="cta-btns anim-on-scroll">
+        <a href="course.html" class="btn btn-primary">Explore Courses</a>
+        <a href="contact.html" class="btn btn-outline">Contact Us</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-rich">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-brand">Great Gaining Institution</div>
+            <p>Chennai's trusted skill-development centre. Practical training, real placements, affordable fees.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Courses</div>
+            <a href="course.html">Frontend Development</a>
+            <a href="course.html">Data Analysis</a>
+            <a href="course.html">Software Testing</a>
+            <a href="course.html">Cyber Security</a>
+            <a href="course.html">UI/UX Design</a>
+            <a href="course.html">Web Development</a>
+            <a href="course.html">Business Analysis</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Quick Links</div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Student Login</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="apply.html">Apply Now</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contact Us</div>
+            <p>📞 +91 88388 75601</p>
+            <p>📧 info@greatgaining.in</p>
+            <p>📍 Chennai, Tamil Nadu – 600001</p>
+            <p style="margin-top:12px; font-size:0.8rem; color:rgba(255,255,255,0.3);">Mon – Sat &nbsp;|&nbsp; 9 AM – 7 PM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 <span>Great Gaining Institution</span> &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; All rights reserved
+    </div>
+</footer>
+
+<script src="Script.js"></script>
+</body>
+</html>

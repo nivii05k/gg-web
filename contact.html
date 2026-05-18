@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><img src="LogoO.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="contact-hero">
+    <div class="contact-hero-content">
+        <div class="section-label" style="color:var(--purple);">We're Here For You</div>
+        <h1>Let's <span>Talk</span></h1>
+        <p>Have a question about a course, fees, or placement? Reach out — our team responds within 24 hours.</p>
+    </div>
+</section>
+
+<!-- QUICK INFO STRIP -->
+<div class="contact-strip">
+    <div class="contact-strip-item">
+        <div class="csi-icon"><i class="fas fa-phone-alt"></i></div>
+        <div>
+            <div class="csi-label">Call Us</div>
+            <div class="csi-value">+91 88388 75601</div>
+        </div>
+    </div>
+    <div class="contact-strip-item">
+        <div class="csi-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+            <div class="csi-label">Email Us</div>
+            <div class="csi-value">info@greatgaining.in</div>
+        </div>
+    </div>
+    <div class="contact-strip-item">
+        <div class="csi-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+            <div class="csi-label">Visit Us</div>
+            <div class="csi-value">Chennai, Tamil Nadu – 600001</div>
+        </div>
+    </div>
+    <div class="contact-strip-item">
+        <div class="csi-icon"><i class="fas fa-clock"></i></div>
+        <div>
+            <div class="csi-label">Working Hours</div>
+            <div class="csi-value">Mon – Sat, 9 AM – 7 PM</div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="contact-main">
+
+    <!-- LEFT — INFO PANEL -->
+    <div class="contact-info-panel">
+        <div class="cip-top">
+            <h2>Get in Touch</h2>
+            <p>Whether you're a student, parent, or working professional — we're happy to guide you to the right course.</p>
+        </div>
+
+        <div class="cip-items">
+            <div class="cip-item">
+                <div class="cip-item-icon"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                    <div class="cip-item-title">Phone</div>
+                    <a href="tel:+918838875601">+91 88388 75601</a>
+                </div>
+            </div>
+            <div class="cip-item">
+                <div class="cip-item-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                    <div class="cip-item-title">Email</div>
+                    <a href="mailto:info@greatgaining.in">info@greatgaining.in</a>
+                </div>
+            </div>
+            <div class="cip-item">
+                <div class="cip-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <div class="cip-item-title">Address</div>
+                    <span>Chennai, Tamil Nadu – 600001</span>
+                </div>
+            </div>
+            <div class="cip-item">
+                <div class="cip-item-icon"><i class="fas fa-clock"></i></div>
+                <div>
+                    <div class="cip-item-title">Office Hours</div>
+                    <span>Monday – Saturday, 9 AM – 7 PM</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cip-social">
+            <div class="cip-social-label">Follow Us</div>
+            <div class="cip-social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT — FORM -->
+    <div class="contact-form-panel">
+        <h2>Send a Message</h2>
+        <p>Fill in the form below and we'll get back to you as soon as possible.</p>
+
+        <form id="contactForm" onsubmit="return sendMessage()" novalidate>
+            <div class="cf-row">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Your Name</label>
+                    <input type="text" id="contactName" placeholder="e.g. Nivetha" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" id="contactEmail" placeholder="you@email.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Phone Number <span class="cf-optional">(optional)</span></label>
+                <input type="tel" id="contactPhone" placeholder="10-digit mobile number" maxlength="10">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-book"></i> Interested In</label>
+                <select id="contactCourse">
+                    <option value="">Select a course (optional)</option>
+                    <option>Frontend Development</option>
+                    <option>Data Analysis</option>
+                    <option>Software Testing</option>
+                    <option>Web Development</option>
+                    <option>Business Analysis</option>
+                    <option>UI/UX Design</option>
+                    <option>Cyber Security</option>
+                    <option>General Enquiry</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-comment-dots"></i> Message</label>
+                <textarea id="contactMsg" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit cf-submit">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+        </form>
+    </div>
+
+</section>
+
+<!-- MAP -->
+<div class="contact-map">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296526!2d80.00902617697754!3d13.047672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a70b6863d433!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+
+<!-- FAQ STRIP -->
+<section class="sec sec-tinted">
+    <div class="section-label">Quick Answers</div>
+    <h2 class="sec-title">Common <span>Questions</span></h2>
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-q">How quickly will I get a response?</div>
+            <div class="faq-a">We respond to all enquiries within 24 hours on working days (Mon–Sat). For urgent queries, call us directly at +91 88388 75601.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Can I visit the institute in person?</div>
+            <div class="faq-a">Yes! You're welcome to visit us at our Chennai centre. We recommend calling ahead to schedule a counselling session so we can give you dedicated time.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">I'm not sure which course to pick. Can you help?</div>
+            <div class="faq-a">Absolutely. Send us a message or call us and our counsellors will assess your background and career goals to recommend the best course for you — completely free.</div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-rich">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-brand">Great Gaining Institution</div>
+            <p>Chennai's trusted skill-development centre. Practical training, real placements, affordable fees.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Courses</div>
+            <a href="course.html">Frontend Development</a>
+            <a href="course.html">Data Analysis</a>
+            <a href="course.html">Software Testing</a>
+            <a href="course.html">Cyber Security</a>
+            <a href="course.html">UI/UX Design</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Quick Links</div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="apply.html">Apply Now</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contact Us</div>
+            <p>📞 +91 88388 75601</p>
+            <p>📧 info@greatgaining.in</p>
+            <p>📍 Chennai, Tamil Nadu – 600001</p>
+            <p style="margin-top:12px; font-size:0.8rem; color:rgba(255,255,255,0.3);">Mon – Sat &nbsp;|&nbsp; 9 AM – 7 PM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 <span>Great Gaining Institution</span> &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; All rights reserved
+    </div>
+</footer>
+
+<script src="Script.js"></script>
+</body>
+</html>

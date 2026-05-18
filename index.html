@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Gaining Institution – Chennai</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><img src="mmm.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-tag">Trusted by 2,000+ students in Chennai</div>
+    <h1>Build Your Future <br><span>With Confidence</span></h1>
+    <p>Industry-focused training that gets you job-ready. Learn real skills, not just theory.</p>
+    <div class="hero-btns">
+        <a href="course.html" class="btn btn-primary">Explore Courses</a>
+        <a href="about.html" class="btn btn-outline">Learn More</a>
+    </div>
+    <div class="hero-stats">
+        <div class="stat"><div class="stat-num">2K+</div><div class="stat-label">Students</div></div>
+        <div class="stat"><div class="stat-num">7</div><div class="stat-label">Courses</div></div>
+        <div class="stat"><div class="stat-num">95%</div><div class="stat-label">Placement Rate</div></div>
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Running</div></div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="sec">
+    <div class="section-label anim-on-scroll">Why Students Choose Us</div>
+    <h2 class="sec-title anim-on-scroll">Everything you need to <span>land your first job</span></h2>
+    <div class="features-grid">
+        <div class="feature-card anim-d1">
+            <div class="feat-icon">🎯</div>
+            <h3>Job-Focused Curriculum</h3>
+            <p>Every module is mapped to real job descriptions. You learn exactly what companies test in interviews.</p>
+        </div>
+        <div class="feature-card anim-d2">
+            <div class="feat-icon">👨‍💻</div>
+            <h3>Industry Trainers</h3>
+            <p>Our trainers are active IT professionals — not just academics. They bring live project experience to every class.</p>
+        </div>
+        <div class="feature-card anim-d3">
+            <div class="feat-icon">📋</div>
+            <h3>Placement Assistance</h3>
+            <p>Resume building, mock interviews, and direct referrals to 50+ hiring partners across Chennai and Bangalore.</p>
+        </div>
+        <div class="feature-card anim-d4">
+            <div class="feat-icon">🏆</div>
+            <h3>Recognised Certificate</h3>
+            <p>Earn a completion certificate acknowledged by top IT companies — adds real credibility to your profile.</p>
+        </div>
+        <div class="feature-card anim-d5">
+            <div class="feat-icon">💰</div>
+            <h3>Affordable Fees</h3>
+            <p>Quality training starting at just ₹10,000. Flexible payment options available for all students.</p>
+        </div>
+        <div class="feature-card anim-d6">
+            <div class="feat-icon">🔄</div>
+            <h3>Lifetime Access</h3>
+            <p>Get lifetime access to all course recordings and materials. Revisit any topic whenever you need it.</p>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec sec-tinted">
+    <div class="section-label anim-on-scroll">Simple Process</div>
+    <h2 class="sec-title anim-on-scroll">From enrolment to <span>employment</span></h2>
+    <div class="steps-row">
+        <div class="step-card anim-d1">
+            <div class="step-num">01</div>
+            <h3>Choose a Course</h3>
+            <p>Browse 7 industry-aligned courses and pick the one that matches your career goal.</p>
+        </div>
+        <div class="step-arrow anim-on-scroll">→</div>
+        <div class="step-card anim-d2">
+            <div class="step-num">02</div>
+            <h3>Enrol & Start</h3>
+            <p>Fill a quick application, pay the fee, and join a live batch — new batches start every month.</p>
+        </div>
+        <div class="step-arrow anim-on-scroll">→</div>
+        <div class="step-card anim-d3">
+            <div class="step-num">03</div>
+            <h3>Build Projects</h3>
+            <p>Work on real-world projects that go straight into your portfolio and impress recruiters.</p>
+        </div>
+        <div class="step-arrow anim-on-scroll">→</div>
+        <div class="step-card anim-d4">
+            <div class="step-num">04</div>
+            <h3>Get Placed</h3>
+            <p>Our placement team connects you with hiring partners. 95% of graduates get placed within 3 months.</p>
+        </div>
+    </div>
+</section>
+
+<!-- POPULAR COURSES -->
+<section class="sec">
+    <div class="section-label anim-on-scroll">Most Enrolled</div>
+    <h2 class="sec-title anim-on-scroll">Popular <span>Courses</span> Right Now</h2>
+    <div class="mini-courses">
+        <div class="mini-course anim-d1">
+            <div class="mini-left">
+                <div class="mini-icon">💻</div>
+                <div>
+                    <div class="mini-name">Frontend Development</div>
+                    <div class="mini-meta">5 Months &nbsp;·&nbsp; ₹15,000 &nbsp;·&nbsp; 480+ enrolled</div>
+                </div>
+            </div>
+            <a href="course.html" class="mini-btn">View →</a>
+        </div>
+        <div class="mini-course anim-d2">
+            <div class="mini-left">
+                <div class="mini-icon">📊</div>
+                <div>
+                    <div class="mini-name">Data Analysis</div>
+                    <div class="mini-meta">3 Months &nbsp;·&nbsp; ₹10,000 &nbsp;·&nbsp; 360+ enrolled</div>
+                </div>
+            </div>
+            <a href="course.html" class="mini-btn">View →</a>
+        </div>
+        <div class="mini-course anim-d3">
+            <div class="mini-left">
+                <div class="mini-icon">🔒</div>
+                <div>
+                    <div class="mini-name">Cyber Security</div>
+                    <div class="mini-meta">4 Months &nbsp;·&nbsp; ₹18,000 &nbsp;·&nbsp; 210+ enrolled</div>
+                </div>
+            </div>
+            <a href="course.html" class="mini-btn">View →</a>
+        </div>
+        <div class="mini-course anim-d4">
+            <div class="mini-left">
+                <div class="mini-icon">🎨</div>
+                <div>
+                    <div class="mini-name">UI/UX Design</div>
+                    <div class="mini-meta">3 Months &nbsp;·&nbsp; ₹12,000 &nbsp;·&nbsp; 290+ enrolled</div>
+                </div>
+            </div>
+            <a href="course.html" class="mini-btn">View →</a>
+        </div>
+        <div class="mini-course anim-d5">
+            <div class="mini-left">
+                <div class="mini-icon">🌐</div>
+                <div>
+                    <div class="mini-name">Web Development</div>
+                    <div class="mini-meta">4 Months &nbsp;·&nbsp; ₹15,000 &nbsp;·&nbsp; 320+ enrolled</div>
+                </div>
+            </div>
+            <a href="course.html" class="mini-btn">View →</a>
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;">
+        <a href="course.html" class="btn btn-primary anim-on-scroll">See All 7 Courses</a>
+    </div>
+</section>
+
+<!-- HIRING PARTNERS -->
+<section class="sec sec-dark">
+    <div class="section-label anim-on-scroll" style="color:var(--purple);">Our Network</div>
+    <h2 class="sec-title anim-on-scroll" style="color:#fff;">Our graduates work at <span>top companies</span></h2>
+    <div class="partners-grid">
+        <div class="partner-tile anim-d1">TCS</div>
+        <div class="partner-tile anim-d2">Infosys</div>
+        <div class="partner-tile anim-d3">Wipro</div>
+        <div class="partner-tile anim-d4">Zoho</div>
+        <div class="partner-tile anim-d1">HCL Tech</div>
+        <div class="partner-tile anim-d2">Cognizant</div>
+        <div class="partner-tile anim-d3">Capgemini</div>
+        <div class="partner-tile anim-d4">Accenture</div>
+        <div class="partner-tile anim-d1">Tech Mahindra</div>
+        <div class="partner-tile anim-d2">Mphasis</div>
+    </div>
+    <p style="text-align:center; color:rgba(255,255,255,0.4); font-size:0.83rem; margin-top:28px;">50+ active hiring partners across Chennai, Bangalore &amp; Hyderabad</p>
+</section>
+
+<!-- MISSION & VISION -->
+<div class="section-label anim-on-scroll" style="padding-top:64px;">Our Purpose</div>
+<div class="mv-container">
+    <div class="mv-box anim-slide-left">
+        <h2>Our Mission</h2>
+        <p>To provide quality education that is simple and practical</p>
+        <p>To help students build strong career skills and confidence</p>
+        <p>To create opportunities for learning and growth for everyone</p>
+    </div>
+    <div class="mv-box anim-slide-right">
+        <h2>Our Vision</h2>
+        <p>To become a leading institution known for student success</p>
+        <p>To empower learners with knowledge and real-world skills</p>
+        <p>To shape a better future through education and innovation</p>
+    </div>
+</div>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+    <div class="section-label anim-on-scroll" style="color:var(--purple);">Limited Seats Per Batch</div>
+    <h2 class="anim-on-scroll">Ready to start your tech career?</h2>
+    <p class="anim-on-scroll">New batches begin every month. Seats fill fast — secure yours today and get career-ready in 3–5 months.</p>
+    <div class="cta-btns anim-on-scroll">
+        <a href="course.html" class="btn btn-primary">Enrol Now</a>
+        <a href="contact.html" class="btn btn-outline">Talk to a Counsellor</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-rich">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-brand">Great Gaining Institution</div>
+            <p>Chennai's trusted skill-development centre. Practical training, real placements, affordable fees.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Courses</div>
+            <a href="course.html">Frontend Development</a>
+            <a href="course.html">Data Analysis</a>
+            <a href="course.html">Software Testing</a>
+            <a href="course.html">Cyber Security</a>
+            <a href="course.html">UI/UX Design</a>
+            <a href="course.html">Web Development</a>
+            <a href="course.html">Business Analysis</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Quick Links</div>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Student Login</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="apply.html">Apply Now</a>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contact Us</div>
+            <p>📞 +91 88388 75601</p>
+            <p>📧 info@greatgaining.in</p>
+            <p>📍 Chennai, Tamil Nadu – 600001</p>
+            <p style="margin-top:12px; font-size:0.8rem; color:rgba(255,255,255,0.3);">Mon – Sat &nbsp;|&nbsp; 9 AM – 7 PM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 <span>Great Gaining Institution</span> &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; All rights reserved
+    </div>
+</footer>
+
+<script src="Script.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>

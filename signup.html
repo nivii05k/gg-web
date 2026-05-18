@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up – Great Gaining Institution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+<nav class="navbar">
+    <h2><img src="loo.png" alt="Logo" class="navbar-logo">Great Gaining Institution</h2>
+    <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="user-info" id="userInfo">
+        <a href="login.html">Login</a>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+</nav>
+
+<div class="auth-wrap">
+<div class="auth-container">
+    <div class="auth-logo">Great Gaining Institution</div>
+    <h2>Create Account</h2>
+
+    <div style="margin-bottom:6px;font-size:0.75rem;font-weight:700;color:#9e9e9e;letter-spacing:0.1em;text-transform:uppercase;">Register as</div>
+    <div class="role-selector">
+        <label class="role-option selected" id="roleStudent" onclick="selectRole('student')">
+            <input type="radio" name="role" value="student" checked>
+            <i class="fas fa-user-graduate"></i>
+            <span>Student</span>
+        </label>
+        <label class="role-option" id="roleAdmin" onclick="selectRole('admin')">
+            <input type="radio" name="role" value="admin">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin</span>
+        </label>
+    </div>
+
+    <form onsubmit="return signupUser()" novalidate>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="newUser" placeholder="Letters only (min. 3 characters)" required autocomplete="name">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="newEmail" placeholder="you@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="newPass" placeholder="Min. 6 characters" required autocomplete="new-password">
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPass" placeholder="Re-enter your password" required autocomplete="new-password">
+        </div>
+        <div class="auth-divider">Your data is stored locally on this device</div>
+        <button type="submit" class="form-submit">Create Account →</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login</a></p>
+</div>
+</div>
+
+<script src="Script.js"></script>
+<script>
+function selectRole(role){
+    document.getElementById('roleStudent').classList.toggle('selected',role==='student');
+    document.getElementById('roleAdmin').classList.toggle('selected',role==='admin');
+    localStorage.setItem('gg_selected_role',role);
+}
+window.signupUser = function(){
+    clearAllErrors();
+    const user=document.getElementById('newUser').value.trim();
+    const email=document.getElementById('newEmail').value.trim();
+    const pass=document.getElementById('newPass').value;
+    const confirm=document.getElementById('confirmPass').value;
+    let valid=true;
+    if(!/^[A-Za-z\s]{3,}$/.test(user)){setError('newUser','Name must be at least 3 letters');valid=false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setError('newEmail','Enter a valid email address');valid=false;}
+    if(pass.length<6){setError('newPass','Password must be at least 6 characters');valid=false;}
+    if(confirm!==pass){setError('confirmPass','Passwords do not match');valid=false;}
+    if(!valid) return false;
+    const role=localStorage.getItem('gg_selected_role')||'student';
+    fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({full_name:user,email,password:pass,role})})
+    .then(r=>r.json()).then(data=>{
+        if(data.error){setError('newEmail',data.error);return;}
+        showToast('✅ Account created! Redirecting to login...');
+        setTimeout(()=>window.location.href='login.html',1400);
+    }).catch(()=>showToast('Server error. Please try again.','error'));
+    return false;
+};
+document.addEventListener('DOMContentLoaded',()=>{
+    const saved=localStorage.getItem('gg_selected_role')||'student';
+    selectRole(saved);
+    if(localStorage.getItem('gg_theme')==='dark'){document.body.classList.add('dark-mode');const t=document.getElementById('darkModeToggle');if(t)t.innerHTML='<i class="fas fa-sun"></i>';}
+});
+function toggleDarkMode(){
+    const isDark=document.body.classList.toggle('dark-mode');
+    localStorage.setItem('gg_theme',isDark?'dark':'light');
+    const t=document.getElementById('darkModeToggle');
+    if(t) t.innerHTML=isDark?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+}
+</script>
+</body>
+</html>

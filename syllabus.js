@@ -1,0 +1,7 @@
+// Syllabus data shared between dashboard and lesson pages
+const SYLLABUS = {
+    "Frontend Development": [
+        { title: "HTML Fundamentals", type: "lesson", desc: "Structure of web pages, semantic tags, forms.",
+          content: "<h3>HTML Fundamentals</h3><p>HTML (HyperText Markup Language) is the backbone of every webpage.</p><h4 style='color:#7c4daa;margin-top:20px;'>Module 1.1: Basic HTML Structure</h4><ul><li><b>Document structure</b> - DOCTYPE, html, head, body tags</li><li><b>Semantic tags</b> - header, nav, main, section, article, footer</li><li><b>Text elements</b> - headings h1-h6, paragraphs, spans</li><li><b>Links and Images</b> - anchor tags, img with alt attributes</li></ul><h4 style='color:#7c4daa;margin-top:20px;'>Module 1.2: Forms and Tables</h4><ul><li><b>Forms</b> - input types, labels, buttons, textarea, select</li><li><b>Form Validation</b> - required, pattern, min, max attributes</li><li><b>Lists</b> - ordered, unordered, definition lists</li><li><b>Tables</b> - thead, tbody, tr, th, td, colspan, rowspan</li></ul><p style='margin-top:16px;background:#f0f4ff;padding:12px;border-radius:8px;'><b>📚 Study Materials:</b><br><a href='https://developer.mozilla.org/en-US/docs/Learn/HTML' target='_blank' style='color:#7c4daa;font-weight:600;'>📄 MDN HTML Guide (Free PDF)</a><br><a href='https://www.w3schools.com/html/' target='_blank' style='color:#7c4daa;font-weight:600;'>📄 W3Schools HTML Tutorial</a></p>" }
+    ]
+};

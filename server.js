@@ -172,6 +172,10 @@ app.use(express.json());
 const staticPath = path.resolve(__dirname);
 app.use(express.static(staticPath));
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+
 // ── DB Connection Pool ──────────────────────────────────────────────────────
 const db = mysql.createPool({
   host:     process.env.DB_HOST,

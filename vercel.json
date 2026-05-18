@@ -8,6 +8,46 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/style.css",
+      "dest": "server.js"
+    },
+    {
+      "src": "/Script.js",
+      "dest": "server.js"
+    },
+    {
+      "src": "/admin.css",
+      "dest": "server.js"
+    },
+    {
+      "src": "/admin.js",
+      "dest": "server.js"
+    },
+    {
+      "src": "/chatbot.js",
+      "dest": "server.js"
+    },
+    {
+      "src": "/syllabus.js",
+      "dest": "server.js"
+    },
+    {
+      "src": "/Logo.png",
+      "dest": "server.js"
+    },
+    {
+      "src": "/LogoO.png",
+      "dest": "server.js"
+    },
+    {
+      "src": "/mmm.png",
+      "dest": "server.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "server.js"
     }

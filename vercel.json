@@ -12,40 +12,17 @@
       "dest": "server.js"
     },
     {
-      "src": "/style.css",
-      "dest": "server.js"
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+      "headers": { "cache-control": "public, max-age=31536000" },
+      "dest": "/$1"
     },
     {
-      "src": "/Script.js",
-      "dest": "server.js"
+      "src": "/(.*\\.html)",
+      "dest": "/$1"
     },
     {
-      "src": "/admin.css",
-      "dest": "server.js"
-    },
-    {
-      "src": "/admin.js",
-      "dest": "server.js"
-    },
-    {
-      "src": "/chatbot.js",
-      "dest": "server.js"
-    },
-    {
-      "src": "/syllabus.js",
-      "dest": "server.js"
-    },
-    {
-      "src": "/Logo.png",
-      "dest": "server.js"
-    },
-    {
-      "src": "/LogoO.png",
-      "dest": "server.js"
-    },
-    {
-      "src": "/mmm.png",
-      "dest": "server.js"
+      "src": "/",
+      "dest": "/index.html"
     },
     {
       "src": "/(.*)",

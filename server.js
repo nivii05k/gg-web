@@ -167,7 +167,7 @@ const cors    = require("cors");
 const path    = require("path");
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: ["http://localhost:3000", process.env.FRONTEND_URL].filter(Boolean), credentials: true }));
 app.use(express.json());
 const staticPath = path.resolve(__dirname);
 app.use(express.static(staticPath));

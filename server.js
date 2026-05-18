@@ -677,12 +677,8 @@ app.post("/api/google-login", async (req, res) => {
 });
 
 // ── Start Server ─────────────────────────────────────────────────────────────
-const { exec } = require("child_process");
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-  exec(`start chrome http://localhost:${PORT}`, (err) => {
-    if (err) exec(`start http://localhost:${PORT}`);
-  });
 });
 

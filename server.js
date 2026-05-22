@@ -1,4 +1,30 @@
 require("dotenv").config();
+const mysql = require("mysql2/promise");
+
+// ── DATABASE (RAILWAY ONLY) ──
+const db = mysql.createPool({
+  host: process.env.MYSQLHOST,
+  port: process.env.MYSQLPORT,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+// Test DB connection
+db.getConnection()
+  .then(conn => {
+    console.log("✅ Railway MySQL Connected Successfully");
+    conn.release();
+  })
+  .catch(err => {
+    console.log("❌ DB Connection Failed:", err.message);
+  });
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -59,7 +85,7 @@ function sendWelcomeMail(toEmail, name) {
           <td><span class="feat-icon">&#127891;</span><span class="feat-text">Earn Certificate</span></td>
         </tr>
       </table>
-      <div class="btn-wrap"><a href="http://localhost:3000/login.html" class="btn">Login to Your Account &rarr;</a></div>
+      <div class="btn-wrap"><a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/login.html" class="btn">Login to Your Account &rarr;</a></div>
       <hr class="divider">
       <p class="text" style="font-size:0.83rem;color:#999;">If you did not create this account, please ignore this email or contact us at <a href="mailto:info@greatgaining.in" style="color:#7c4daa;">info@greatgaining.in</a></p>
     </div>
@@ -138,7 +164,7 @@ function sendApplicationMail(toEmail, name, courseName) {
           <td class="step-text"><strong style="color:#1a1a2e;">Batch Joining</strong> &mdash; Once confirmed, you will receive your batch schedule and joining details.</td>
         </tr>
       </table>
-      <div class="btn-wrap"><a href="http://localhost:3000/dashboard.html" class="btn">View My Dashboard &rarr;</a></div>
+      <div class="btn-wrap"><a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard.html" class="btn">View My Dashboard &rarr;</a></div>
       <hr class="divider">
       <p class="text" style="font-size:0.83rem;color:#999;">Have questions? Reach us at <a href="mailto:info@greatgaining.in" style="color:#7c4daa;">info@greatgaining.in</a> or call <a href="tel:+918838875601" style="color:#7c4daa;">+91 88388 75601</a></p>
     </div>
@@ -161,13 +187,16 @@ function sendApplicationMail(toEmail, name, courseName) {
   });
 }
 const express = require("express");
-const mysql   = require("mysql2/promise");
+
 const bcrypt  = require("bcryptjs");
 const cors    = require("cors");
 const path    = require("path");
 
 const app = express();
-app.use(cors({ origin: ["http://localhost:3000", process.env.FRONTEND_URL].filter(Boolean), credentials: true }));
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
 app.use(express.json());
 const staticPath = path.resolve(__dirname);
 app.use(express.static(staticPath, { dotfiles: 'allow' }));
@@ -177,13 +206,7 @@ app.get("/", (req, res) => {
 });
 
 // ── DB Connection Pool ──────────────────────────────────────────────────────
-const db = mysql.createPool({
-  host:     process.env.DB_HOST,
-  port:     process.env.DB_PORT || 3306,
-  user:     process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+
 
 // Auto-create course_progress table
 db.execute(`CREATE TABLE IF NOT EXISTS course_progress (
@@ -545,10 +568,10 @@ app.post("/api/login-alert", async (req, res) => {
                <p style="margin:6px 0 0;font-size:0.85rem;color:#555;">After 4 failed attempts, your account will be locked for 5 minutes.</p>
              </div>`
         }
-        <p style="color:#555;font-size:0.88rem;line-height:1.7;">If this was <strong>you</strong>, please use the correct password or click <a href="http://localhost:3000/forgot-password.html" style="color:#7c4daa;font-weight:600;">Forgot Password</a> to reset it.</p>
+        <p style="color:#555;font-size:0.88rem;line-height:1.7;">If this was <strong>you</strong>, please use the correct password or click <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/forgot-password.html" style="color:#7c4daa;font-weight:600;">Forgot Password</a> to reset it.</p>
         <p style="color:#555;font-size:0.88rem;line-height:1.7;margin-top:10px;">If this was <strong>NOT you</strong>, your account may be at risk. Please reset your password immediately.</p>
         <div style="text-align:center;margin-top:24px;">
-          <a href="http://localhost:3000/forgot-password.html" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#7c4daa,#5a2d8a);color:#fff;text-decoration:none;border-radius:10px;font-size:0.9rem;font-weight:600;">Reset My Password</a>
+          <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/forgot-password.html" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#7c4daa,#5a2d8a);color:#fff;text-decoration:none;border-radius:10px;font-size:0.9rem;font-weight:600;">Reset My Password</a>
         </div>
       </div>
       <div style="background:#f8f4ff;padding:20px 40px;text-align:center;border-top:1px solid #ede7f6;">

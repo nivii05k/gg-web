@@ -2,7 +2,7 @@ require("dotenv").config();
 require("dns").setDefaultResultOrder("ipv4first");
 const mysql = require("mysql2/promise");
 const express = require("express");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 // ── DATABASE (RAILWAY ONLY) ──
 const db = mysql.createPool({
@@ -28,26 +28,8 @@ db.getConnection()
   .catch(err => {
     console.log("❌ DB Connection Failed:", err.message);
   });
-const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: Number(process.env.MAIL_PORT),
-  secure: false,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
-  }
-});
-transporter.verify((err, success) => {
-  if (err) {
-    console.log("VERIFY ERROR:", err);
-  } else {
-    console.log("SMTP READY");
-  }
-});
-transporter.verify((error) => {
-  if (error) console.log("Mail config error:", error.message);
-  else console.log("Mail server ready");
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
+console.log("✅ Resend mail client initialized");
 
 function sendWelcomeMail(toEmail, name) {
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
@@ -110,21 +92,13 @@ function sendWelcomeMail(toEmail, name) {
 console.log("toEmail:", toEmail);
 console.log("name:", name);
 
-transporter.sendMail({
-  from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
+resend.emails.send({
+  from: 'Great Gaining Institution <onboarding@resend.dev>',
   to: toEmail,
   subject: "Welcome to Great Gaining Institution - Account Created Successfully",
   html
-}, (error, info) => {
-
-  console.log("sendMail callback triggered");
-
-  if (error) {
-    console.log("MAIL ERROR:", error);
-  } else {
-    console.log("MAIL SENT:", info);
-  }
-});
+}).then(info => console.log("MAIL SENT:", info))
+  .catch(error => console.log("MAIL ERROR:", error));
 }
 
 function sendApplicationMail(toEmail, name, courseName) {
@@ -195,15 +169,13 @@ function sendApplicationMail(toEmail, name, courseName) {
     </div>
   </div>
   </body></html>`;
-  transporter.sendMail({
-    from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
+  resend.emails.send({
+    from: 'Great Gaining Institution <onboarding@resend.dev>',
     to: toEmail,
     subject: `Application Received - ${courseName} | Great Gaining Institution`,
     html
-  }, (error, info) => {
-    if (error) console.log("Application mail error:", error.message);
-    else console.log("Application mail sent to", toEmail, "| ID:", info.messageId);
-  });
+  }).then(info => console.log("Application mail sent to", toEmail, "| ID:", info.id))
+    .catch(error => console.log("Application mail error:", error.message));
 }
 
 
@@ -600,12 +572,12 @@ app.post("/api/login-alert", async (req, res) => {
         <p style="margin:0;font-size:0.75rem;color:#9e9e9e;">Great Gaining Institution &nbsp;|&nbsp; Chennai, Tamil Nadu &nbsp;|&nbsp; info@greatgaining.in</p>
       </div>
     </div></body></html>`;
-    transporter.sendMail({
-      from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
+    resend.emails.send({
+      from: 'Great Gaining Institution <onboarding@resend.dev>',
       to: email,
       subject,
       html
-    }, (err) => { if (err) console.log('Login alert mail error:', err.message); });
+    }).catch(err => console.log('Login alert mail error:', err.message));
     res.json({ message: 'ok' });
   } catch(e) {
     res.status(500).json({ error: 'Server error.' });
@@ -643,12 +615,12 @@ app.post("/api/forgot-password", async (req, res) => {
         <p style="margin:0;font-size:0.75rem;color:#9e9e9e;">Great Gaining Institution &nbsp;|&nbsp; Chennai, Tamil Nadu</p>
       </div>
     </div></body></html>`;
-    transporter.sendMail({
-      from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
+    resend.emails.send({
+      from: 'Great Gaining Institution <onboarding@resend.dev>',
       to: email,
       subject: "Password Reset OTP – Great Gaining Institution",
       html
-    }, (err) => { if (err) console.log("OTP mail error:", err.message); });
+    }).catch(err => console.log("OTP mail error:", err.message));
     res.json({ message: "OTP sent successfully." });
   } catch(e) {
     console.error(e);

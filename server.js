@@ -1,10 +1,8 @@
 require("dotenv").config();
+require("dns").setDefaultResultOrder("ipv4first");
 const mysql = require("mysql2/promise");
 const express = require("express");
 const nodemailer = require("nodemailer");
-require("dns").setDefaultResultOrder("ipv4first");
-require("dns").setDefaultResultOrder("ipv4first");
-
 
 // ── DATABASE (RAILWAY ONLY) ──
 const db = mysql.createPool({
@@ -31,12 +29,13 @@ db.getConnection()
     console.log("❌ DB Connection Failed:", err.message);
   });
 const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
+  family: 4,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
   }
 });
 transporter.verify((error) => {

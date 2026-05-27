@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
+require("dns").setDefaultResultOrder("ipv4first");
 
 // ── DATABASE (RAILWAY ONLY) ──
 const db = mysql.createPool({
@@ -25,14 +26,13 @@ db.getConnection()
   .catch(err => {
     console.log("❌ DB Connection Failed:", err.message);
   });
-const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  host: process.env.MAIL_HOST,
+  port: 587,
+  secure: false,
   auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 transporter.verify((error) => {
@@ -194,7 +194,10 @@ const path    = require("path");
 
 const app = express();
 app.use(cors({
-  origin: "*",
+  origin: [
+    "http://localhost:3000",
+    "https://gg-web-sigma.vercel.app"
+  ],
   credentials: true
 }));
 app.use(express.json());

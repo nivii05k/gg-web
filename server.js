@@ -40,8 +40,11 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 30000
 });
 transporter.verify((err, success) => {
-  if (err) console.log("Mail config error:", err);
-  else console.log("Mail server ready");
+  if (err) {
+    console.log("VERIFY ERROR:", err);
+  } else {
+    console.log("SMTP READY");
+  }
 });
 transporter.verify((error) => {
   if (error) console.log("Mail config error:", error.message);

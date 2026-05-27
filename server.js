@@ -106,15 +106,25 @@ function sendWelcomeMail(toEmail, name) {
     </div>
   </div>
   </body></html>`;
-  transporter.sendMail({
-    from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
-    to: toEmail,
-    subject: "Welcome to Great Gaining Institution - Account Created Successfully",
-    html
-  }, (error, info) => {
-    if (error) console.log("Welcome mail error:", error.message);
-    else console.log("Welcome mail sent to", toEmail, "| ID:", info.messageId);
-  });
+ console.log("=== sendWelcomeMail called ===");
+console.log("toEmail:", toEmail);
+console.log("name:", name);
+
+transporter.sendMail({
+  from: `"Great Gaining Institution" <${process.env.MAIL_USER}>`,
+  to: toEmail,
+  subject: "Welcome to Great Gaining Institution - Account Created Successfully",
+  html
+}, (error, info) => {
+
+  console.log("sendMail callback triggered");
+
+  if (error) {
+    console.log("MAIL ERROR:", error);
+  } else {
+    console.log("MAIL SENT:", info);
+  }
+});
 }
 
 function sendApplicationMail(toEmail, name, courseName) {

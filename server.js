@@ -190,7 +190,7 @@ function sendApplicationMail(toEmail, name, courseName) {
     else console.log("Application mail sent to", toEmail, "| ID:", info.messageId);
   });
 }
-const express = require("express");
+
 
 const bcrypt  = require("bcryptjs");
 const cors    = require("cors");

@@ -29,14 +29,19 @@ db.getConnection()
     console.log("❌ DB Connection Failed:", err.message);
   });
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  service: "gmail",
   family: 4,
   auth: {
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS
-  }
+  },
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+  socketTimeout: 30000
+});
+transporter.verify((err, success) => {
+  if (err) console.log("Mail config error:", err);
+  else console.log("Mail server ready");
 });
 transporter.verify((error) => {
   if (error) console.log("Mail config error:", error.message);

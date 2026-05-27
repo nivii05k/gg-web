@@ -1,6 +1,10 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
+const express = require("express");
+const nodemailer = require("nodemailer");
 require("dns").setDefaultResultOrder("ipv4first");
+require("dns").setDefaultResultOrder("ipv4first");
+
 
 // ── DATABASE (RAILWAY ONLY) ──
 const db = mysql.createPool({
